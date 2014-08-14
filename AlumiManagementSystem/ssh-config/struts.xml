@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<include file="struts-admin.xml"/>
+	<include file="struts-user.xml"/>
+	<include file="struts-survey.xml"/>
+ 	<!-- 设置上传的文件大小为 1073741M左右-->
+  	<constant name="struts.multipart.maxSize" value="1073741824000"/> 
+  	<constant name="struts.i18n.encoding" value="utf-8"></constant>
+  	
+    <package name="index" namespace="/" extends="struts-default">
+		<!-- 定义拦截器 -->
+	    <interceptors>
+	    	<!-- 自定义一个拦截器 -->
+	    	<interceptor name="adminInterceptor" class="sencloud.sl.action.normal.AdminLoginInterceptor"></interceptor>
+	    	<!-- 定义一个拦截器栈，来引入自定义拦截器，这里必须要引入默认的拦截器defaultStack -->
+	    	<interceptor-stack name="mydefault">
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    		<interceptor-ref name="adminInterceptor"></interceptor-ref>
+	    	</interceptor-stack>
+	    </interceptors>
+	    
+	    <!-- 采用这种方式应用拦截器可以使包下的所有action都能应用到这个拦截器 -->
+	    <default-action-ref name="mydefault"></default-action-ref>
+
+	  	<!-- 全局的result -->
+	   	<global-results>
+	    		<result name="adminLogin" type="freemarker">/WEB-INF/admin/login.ftl</result>
+	   	</global-results> 
+
+		<!-- 管理员登录的action -->
+      	<action name="adminloginaction" class="sencloud.sl.action.normal.LoginAction">
+      		<result name="success" type="freemarker">/WEB-INF/admin/index.ftl</result>
+      		<result name="input" type="freemarker">
+				/WEB-INF/admin/login.ftl
+			</result>
+      	</action>
+      	<!-- 管理员密码修改 -->
+      	<action name="showAdminChangePwAction" class="sencloud.sl.action.admin.StuInforAction">
+      		<result name="success" type="freemarker">/WEB-INF/admin/adminChangPw.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 管理员修改 -->
+      	<action name="changeAdminPwAction" class="sencloud.sl.action.normal.LoginAction" method = "changePw">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 管理员注销 -->
+      	<action name="exitAdmin" class="sencloud.sl.action.normal.LoginAction" method = "exit">
+      		<result name="success" type="freemarker">/login.html</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+    </package>
+</struts>    

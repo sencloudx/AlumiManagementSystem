@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+<package name="admin" namespace="/" extends="struts-default">
+		<!-- 定义拦截器 -->
+	    <interceptors>
+	    	<!-- 自定义一个拦截器 -->
+	    	<interceptor name="adminInterceptor" class="sencloud.sl.action.normal.AdminLoginInterceptor"></interceptor>
+	    	<!-- 定义一个拦截器栈，来引入自定义拦截器，这里必须要引入默认的拦截器defaultStack -->
+	    	<interceptor-stack name="mydefault">
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    		<interceptor-ref name="adminInterceptor"></interceptor-ref>
+	    	</interceptor-stack>
+	    </interceptors>
+	    
+	    <!-- 采用这种方式应用拦截器可以使包下的所有action都能应用到这个拦截器 -->
+	    <default-action-ref name="mydefault"></default-action-ref>
+
+	  	<!-- 全局的result -->
+	   	<global-results>
+	    		<result name="adminLogin" type="freemarker">/WEB-INF/admin/login.ftl</result>
+	   	</global-results> 
+	   	
+	    <!-- 显示信息的添加界面 -->	
+		<action name="showInforAddAction" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type="freemarker">/WEB-INF/admin/inforAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行信息的添加 -->	
+		<action name="inforAddAction" class="sencloud.sl.action.admin.StuInforAction" method = "addInfor">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示信息集合 -->
+      	<action name="inforListAction" class="sencloud.sl.action.admin.StuInforAction" method = "getStuInforList">
+      		<result name="success" type="freemarker">/WEB-INF/admin/inforList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+      	<!-- 显示学生的就业分布 -->
+      	<action name="showSpreadAction" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type="freemarker">/WEB-INF/admin/stuSpread.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 根据各个省市显示集合 -->
+      	<action name="showSpreadByCityAction" class="sencloud.sl.action.admin.StuInforAction" method = "showSpread">
+      		<result name="success" type="freemarker">/WEB-INF/admin/spreadShow.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示该学生的信息详情 -->
+      	<action name="showInforDetailAction" class="sencloud.sl.action.admin.StuInforAction" method = "showInforDetail">
+      		<result name="success" type="freemarker">/WEB-INF/admin/inforDetail.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 彻底删除学生信息 -->
+      	<action name="thoroughDeleteAction" class="sencloud.sl.action.admin.StuInforAction" method = "thoroughDelete">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示修改界面 -->
+      	<action name="showInforUpdateAction" class="sencloud.sl.action.admin.StuInforAction" method = "showInforDetail">
+      		<result name="success" type="freemarker">/WEB-INF/admin/inforUpdate.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行更新 -->
+      	<action name="inforUpdateAction" class="sencloud.sl.action.admin.StuInforAction" method = "inforUpdate">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示批量添加界面 -->
+      	<action name="showBachAddAction" class="sencloud.sl.action.admin.StuInforAction" method = "showInforDetail">
+      		<result name="success" type="freemarker">/WEB-INF/admin/batchAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 伪删除与还原 -->
+      	<action name="fakeDeleteAction" class="sencloud.sl.action.admin.StuInforAction" method = "fakeDelete"> 
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- excel导入 -->
+      	<action name="excelUploadAction" class="sencloud.sl.action.admin.StuInforAction" method = "excelUpload">
+      		<interceptor-ref name="fileUpload"/>
+  			<interceptor-ref name="defaultStack" />
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      	</action>
+      	
+      	<!-- 显示excel导出界面 -->
+      	<action name="showExportExcelAction" class="sencloud.sl.action.admin.StuInforAction">
+      		<result name="success" type="freemarker">/WEB-INF/admin/excelExport.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- excel导出 -->
+      	<action name="exportExcelAction" class="sencloud.sl.action.admin.StuInforAction">
+      		<result name="success" type="stream"><!-- type="stream"表示要以二进制的文件去进行下载 -->
+					<param name="contentType">application/vnd.ms-excel</param><!-- 指明文件的类型 -->
+					<!--attachment属性是要选择打开时单独打开，而不是在浏览器中打开，默认是inline. 指明下载时文件的名字 -->
+					<param name="contentDisposition">attachment;filename="stu_infor.xls"</param>
+					<param name="inputName">exportInfor</param><!-- 指明文件下载的方法的名字 -->
+					<!-- 还可以指定缓冲大小  bufferSize -->
+			</result>
+			<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示打印界面 -->
+      	<action name="showPrintAction" class="sencloud.sl.action.admin.StuInforAction" method = "showSpread">
+      		<result name="success" type="freemarker">/WEB-INF/admin/inforPrint.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示浙江地图 -->
+      	<action name="showZjMap" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/zjMap.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示生源分布 -->
+      	<action name="showEnrollmentSpreadAction" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/enrollmentMap.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示生源浙江地图 -->
+      	<action name="showZjEnrollmentMap" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/zjEnrollmentMap.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 联络员获取本班的校友信息 -->
+      	<action name = "sameClassesInforListAction" class = "sencloud.sl.action.admin.StuInforAction" method = "getStuInforList">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/sameClassesStu.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 高级管理员对校友进行授权 -->
+      	<action name = "showAuthorizationAction" class = "sencloud.sl.action.admin.StuInforAction" method = "showAuthorization">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/authorization.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<action name = "authorizationAction" class = "sencloud.sl.action.admin.StuInforAction" method = "authorization">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 超级管理员显示发送邮件界面 -->
+      	<action name = "showSendMailAction" class = "sencloud.sl.action.admin.StuInforAction" method = "showAuthorization">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/sendMail.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 邮件的发送 -->
+      	<action name = "sendMailAction" class = "sencloud.sl.action.admin.SendMailAction">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<action name="fck" class = "sencloud.sl.base.BaseAction" >
+      		<result name="success" type="freemarker">/WEB-INF/admin/test.ftl</result>
+      	</action>
+      	
+      	<!-- 显示专业的人数 -->
+      	<action name = "majorStuNumAction" class = "sencloud.sl.action.admin.StuInforAction" method = "majorStuNum">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+      	
+      	<!-- 班级管理============================================================================= -->
+      	<!-- 显示班级列表 -->	
+		<action name="classesListAction" class="sencloud.sl.action.admin.ClassesAction" method = "getClassesList">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/classesList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示班级添加 -->
+      	<action name="showClassesAddAction" class="sencloud.sl.action.admin.ClassesAction">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/classesAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行班级添加 -->
+      	<action name="classesAddAction" class="sencloud.sl.action.admin.ClassesAction" method = "addClasses">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 班级删除 -->
+      	<action name="deleteAction" class="sencloud.sl.action.admin.ClassesAction" method = "deleteClasses">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示修改 -->
+      	<action name="showClassesUpdateAction" class="sencloud.sl.action.admin.ClassesAction" method = "showUpdateClasses">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/classesUpdate.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行修改 -->
+      	<action name="classesUpdateAction" class="sencloud.sl.action.admin.ClassesAction" method = "updateClasses">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示批量上传 -->
+      	<action name = "showBachAddClassesAction" class = "sencloud.sl.action.admin.ClassesAction">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/classesBatchAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 批量上传 -->
+      	<action name = "classesExcelUploadAction" class = "sencloud.sl.action.admin.ClassesAction" method = "batchAdd">
+      		<interceptor-ref name="fileUpload"/>
+  			<interceptor-ref name="defaultStack" />
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      	</action>
+      	<!-- 获取班级的学生 -->
+      	<action name = "stuByClassesAction" class = "sencloud.sl.action.admin.ClassesAction" method = "getClassesStu">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/classesStu.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+      	
+      	<!-- 专业管理============================================================================= -->
+      	<!-- 显示专业列表 -->	
+		<action name="majorListAction" class="sencloud.sl.action.admin.MajorAction" method = "getMajorList">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/majorList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示专业添加 -->
+      	<action name="showMajorAddAction" class="sencloud.sl.action.admin.MajorAction">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/majorAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行专业添加 -->
+      	<action name="majorAddAction" class="sencloud.sl.action.admin.MajorAction" method = "addMajor">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 专业删除 -->
+      	<action name="deleteMajorAction" class="sencloud.sl.action.admin.MajorAction" method = "deleteMajor">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示修改 -->
+      	<action name="showMajorUpdateAction" class="sencloud.sl.action.admin.MajorAction" method = "showUpdateMajor">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/majorUpdate.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行修改 -->
+      	<action name="majorUpdateAction" class="sencloud.sl.action.admin.MajorAction" method = "updateMajor">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示批量上传 -->
+      	<action name = "showBachAddMajorAction" class = "sencloud.sl.action.admin.MajorAction">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/majorBatchAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 批量上传 -->
+      	<action name = "majorExcelUploadAction" class = "sencloud.sl.action.admin.MajorAction" method = "batchAdd">
+      		<interceptor-ref name="fileUpload"/>
+  			<interceptor-ref name="defaultStack" />
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      	</action>
+      	
+      	
+      	<!-- 普通管理员列表============================================================== -->
+      	<action name = "adminListAction" class = "sencloud.sl.action.admin.AdminAction" method = "getList">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/adminList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示添加管理员 -->
+      	<action name="showAdminAddAction" class="sencloud.sl.action.admin.StuInforAction" method = "showAddInfor">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/adminAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 添加普通管理员 -->
+      	<action name="adminAddAction" class="sencloud.sl.action.admin.AdminAction" method = "adminAdd">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 删除 -->
+      	<action name="deleteAdminAction" class="sencloud.sl.action.admin.AdminAction" method = "delete">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示信息修改 -->
+      	<action name="showAdminUpdateAction" class="sencloud.sl.action.admin.AdminAction" method = "showUpdate">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/adminUpdate.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 进行信息修改 -->
+      	<action name="updateAdminAction" class="sencloud.sl.action.admin.AdminAction" method = "update">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 显示文件上传界面 -->
+      	<action name="showUploadPage" class="sencloud.sl.action.admin.ToolAction">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/UploadPage.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- uploadFile.action -->
+      	<action name="uploadFile" class="sencloud.sl.action.admin.ToolAction" method = "uploadFile">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+      	<!-- 显示文件筛选界面 -->
+      	<action name="showSelectPage" class="sencloud.sl.action.admin.ToolAction" method = "showSelect">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/selectPage.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 进行照片的筛选测试 -->
+      	<action name="selectAction" class="sencloud.sl.action.admin.ToolAction" method = "select">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 获取所有的日志信息 -->
+      	<action name="logList" class="sencloud.sl.action.admin.ToolAction" method = "logList">
+      		<result name="success" type = "freemarker">/WEB-INF/admin/logList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	
+   </package>
+</struts>

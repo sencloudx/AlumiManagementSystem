@@ -1,0 +1,144 @@
+@charset "utf-8";
+/* 后台框架页面 */
+*{
+	margin:0;
+	padding:0;
+}
+html{
+	padding:0;
+	_padding:80px 0 0 200px;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+body{
+	_padding:80px 0 0 200px;
+	_padding:/**/0;
+	height:100%;
+	overflow:hidden;
+	position:relative;
+}
+#left{
+	position:absolute;
+	top:80px;
+	_top:0px;
+	left:0;
+	bottom:0px;
+	overflow-y:hidden;
+	overflow-x:hidden;
+	_border-top:#000000 solid 80px;
+	_padding-bottom:0px;
+	border-right:#a6b2ca solid 1px;
+	width:200px;
+	height:auto !important;
+	height:100%;
+	background:#dbedff;
+}
+#lefttop{
+	background:url(/AlumiManagementSystem/images/admin/lefttop.gif) no-repeat;
+	height:30px;
+	width:200px;
+	color: #1B4792;
+	text-align: center;
+	line-height: 25px;
+}
+#header{
+	position:absolute;
+	top:0;
+	right:0;
+	left:0px;
+	width:auto;
+	_width:100%;
+	height:80px;
+	background:url(../../images/admin/banner.jpg) repeat-x 100% 0%;
+	
+}
+#middle{
+	_border-bottom:#000000 solid 80px;
+	_border-right:#000000 solid 201px;
+	position:relative;
+	position:/**/absolute;
+	top:0;
+	top:/**/80px;
+	right:0;
+	bottom:0;
+	left:0;
+	left:/**/201px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	width:auto;
+	_width:100%;
+	height:auto;
+	_height:100%;
+	background:#f5ffff;
+}
+#middlebg{
+	padding:0px;
+	margin:0px;
+	background:#e0edfd;
+	width:100%;
+	height:100%;
+	text-align:center;
+}
+#userinfo{
+    position:absolute;
+	top:-5px;
+	right:80px;
+	font-size:12px;
+	color:#05487F;
+	padding:5px 0 0 40px;
+	line-height:30px;
+	background: url(/AlumiManagementSystem/images/admin/logoman_all.png) no-repeat;
+}
+#changepass{
+	position:absolute;
+	padding-left:35px;
+	top:54px;
+	right:120px;
+	height:25px;
+	width:76px;
+	font-size:12px;
+}
+#exitbtn{
+    position:absolute;
+	padding-left:35px;
+	top:54px;
+	right:20px;
+	height:25px;
+	width:76px;
+	font-size:12px;
+}
+
+.content_button{/*后台内容中按钮样式*/
+  background:url(/AlumiManagementSystem/images/admin/content_button.jpg) repeat-x;
+  height:20px;
+  border:1px solid #a1bdd3;
+  padding:1px 6px 1px 6px;
+  margin:3px 5px 0 0;
+  color:#346977;
+  font-size:12px;
+}
+.content_button_a_right{/*链接按钮样式*/
+  background:url(/AlumiManagementSystem/images/admin/content_button.jpg) repeat-x;
+  height:15px;
+  border:1px solid #a1bdd3;
+  padding:2px 7px 2px 7px;
+  margin:3px 5px 0 0;
+  color:#346977;
+  font-size:12px;
+  display:block;
+  float:right;
+  cursor: pointer; 
+} 
+.content_button_a_left{/*链接按钮样式*/
+  background:url(/AlumiManagementSystem/images/admin/content_button.jpg) repeat-x;
+  height:15px;
+  border:1px solid #a1bdd3;
+  padding:2px 7px 2px 7px;
+  margin:3px 5px 0 5px;
+  color:#346977;
+  font-size:12px;
+  display:block;
+  float:left;
+  cursor: pointer; 
+} 

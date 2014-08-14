@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="survey" namespace="/" extends="struts-default">
+		<!-- 定义拦截器 -->
+	    <interceptors>
+	    	<!-- 自定义一个拦截器 -->
+	    	<interceptor name="adminInterceptor" class="sencloud.sl.action.normal.AdminLoginInterceptor"></interceptor>
+	    	<!-- 定义一个拦截器栈，来引入自定义拦截器，这里必须要引入默认的拦截器defaultStack -->
+	    	<interceptor-stack name="mydefault">
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    		<interceptor-ref name="adminInterceptor"></interceptor-ref>
+	    	</interceptor-stack>
+	    </interceptors>
+	    
+	    <!-- 采用这种方式应用拦截器可以使包下的所有action都能应用到这个拦截器 -->
+	    <default-action-ref name="mydefault"></default-action-ref>
+
+	  	<!-- 全局的result -->
+	   	<global-results>
+	    	<result name="adminLogin" type="freemarker">/WEB-INF/admin/login.ftl</result>
+	   	</global-results> 
+	   	
+	    <!-- 显示问卷调查题库列表 -->	
+		<action name="showQueBankList" class="sencloud.sl.action.survey.QuestionBankAction" method = "getQueList">
+      		<result name="success" type="freemarker">/WEB-INF/survey/queBankList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 显示试题添加 -->
+      	<action name="showAddQue" class="sencloud.sl.action.survey.QuestionBankAction" method = "getQueTypeList">
+      		<result name="success" type="freemarker">/WEB-INF/survey/queAdd.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 试题添加 -->
+      	<action name="addQue" class="sencloud.sl.action.survey.QuestionBankAction" method = "addQue">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      	</action>
+      	
+      	
+      	
+      	<!-- 显示制定调查问卷 -->
+      	<action name="setQuestionnaire" class="sencloud.sl.action.survey.QuestionBankAction" method = "getQueTypeList">
+      		<result name="success" type="freemarker">/WEB-INF/survey/questionnaireSet.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 添加调查问卷 -->
+      	<action name="addQuestionnaire" class="sencloud.sl.action.survey.QuestionnaireAction" method = "addQuestionnaire">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      	</action>
+      	
+      	
+      	
+      	
+      	<!-- 获取问卷列表 -->
+      	<action name="questionnaireList" class="sencloud.sl.action.survey.QuestionnaireAction" method = "questionnaireList">
+      		<result name="success" type="freemarker">/WEB-INF/survey/questionnaireList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 获取问卷视图 -->
+      	<action name="questionnaireDetail" class="sencloud.sl.action.survey.QuestionnaireAction" method = "questionnaireDetail">
+      		<result name="success" type="freemarker">/WEB-INF/survey/questionnaireDetail.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+   </package>
+</struts>

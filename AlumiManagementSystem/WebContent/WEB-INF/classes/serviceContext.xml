@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+           
+    <bean id="commonService" class="sencloud.sl.service.impl.admin.CommonServiceImpl">
+		<property name="commonDAO" ref="commonDAO"></property>
+	</bean>      
+    
+    <bean id="stuInforService" class="sencloud.sl.service.impl.admin.StuInforServiceImpl" >
+    	<property name="stuInforDAO" ref="stuInforDAO"></property>
+    	<property name="adminDAO" ref="adminDAO"></property>
+    </bean>
+    
+    <bean id="excelBatchInput" class="sencloud.sl.service.impl.admin.ExcelBatchInputImpl" >
+    	<property name="stuInforDAO" ref="stuInforDAO"></property>
+    	<property name="majorDAO" ref="majorDAO"></property>
+    	<property name="classesDAO" ref="classesDAO"></property>
+    </bean>
+    <bean id="classesService" class="sencloud.sl.service.impl.admin.ClassesServiceImpl" >
+    	<property name="classesDAO" ref="classesDAO"></property>
+    </bean>
+    <bean id="majorService" class="sencloud.sl.service.impl.admin.MajorServiceImpl" >
+    	<property name="majorDAO" ref="majorDAO"></property>
+    </bean>
+    <bean id="classesExcelBatchInput" class="sencloud.sl.service.impl.admin.ClassesExcelBatchInputImpl" >
+    	<property name="classesDAO" ref="classesDAO"></property>
+    </bean>
+    <bean id="majorExcelBatchInput" class="sencloud.sl.service.impl.admin.MajorExcelBatchInputImpl" >
+    	<property name="majorDAO" ref="majorDAO"></property>
+    </bean>
+    <bean id="loginService" class="sencloud.sl.service.impl.admin.LoginServiceImpl" >
+    	<property name="adminDAO" ref="adminDAO"></property>
+    	<property name="stuInforDAO" ref="stuInforDAO"></property>
+    </bean>
+    <bean id="adminService" class="sencloud.sl.service.impl.admin.AdminServiceImpl" >
+    	<property name="adminDAO" ref="adminDAO"></property>
+    </bean>
+    <bean id="queBankService" class="sencloud.sl.service.impl.admin.QuestionBankServiceImpl" >
+    	<property name="questionBankDAO" ref="questionBankDAO"></property>
+    </bean>
+    <bean id="questionnaireService" class="sencloud.sl.service.impl.admin.QuestionnaireServiceImpl" >
+    	<property name="questionnaireDAO" ref="questionnaireDAO"></property>
+    </bean>
+</beans>

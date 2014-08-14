@@ -1,0 +1,107 @@
+/* CSS Document */
+* {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 2;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+.outWrapper {
+	position: absolute;
+	border: 3px solid #EEEEEE;
+	background: #FFFFFF;
+	z-index: 1001;
+	overflow: hidden;
+	display: none;
+}
+
+.innerWrapper {
+	border: 1px solid #CCCCCC;
+}
+
+.shadeBlockTitle {
+	background: url(/AlumiManagementSystem/images/shadeBlock/shadeTopBg.gif);
+	height: 48px;
+	margin: 0;
+	padding: 0;
+}
+
+.shadeBlockTitle img {
+	border: none;
+	float: right;
+	width: 16px;
+	height: 16px;
+	clear: none;
+	cursor: pointer;
+}
+
+.shadeBlockTitle h5 {
+	float: left;
+	clear: none;
+	background:
+		url(/AlumiManagementSystem/images/shadeBlock/shadeTopIcon.gif)
+		no-repeat;
+	height: 23px;
+	margin: 7px 0 0 16px !important;
+	margin: 7px 0 0 8px;
+	padding: 18px 0 0 40px;
+	color: #666666;
+	word-spacing: 6px;
+	font-size: 13px;
+}
+
+.shadeBlockContent {
+	height: auto;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+#baiduSearchWrapper h5,#googleSearchWrapper h5 {
+	background: url(/AlumiManagementSystem/images/shadeBlock/search.png)
+		no-repeat;
+}
+
+#localIndexWrapper h5 {
+	background: url(/AlumiManagementSystem/images/shadeBlock/tags.png)
+		no-repeat;
+}
+
+.shadeHRLTitle {
+	background: url(/AlumiManagementSystem/images/shadeBlock/shadeTopBg.gif);
+	height: 48px;
+	margin: 0;
+	padding: 0;
+}
+
+.shadeHRLTitle img {
+	border: none;
+	float: right;
+	width: 16px;
+	height: 16px;
+	clear: none;
+	cursor: pointer;
+}
+
+.shadeHRLTitle h5 {
+	float: left;
+	clear: none;
+	background:
+		url(/AlumiManagementSystem/images/shadeBlock/shadeTopIcon.gif)
+		no-repeat;
+	height: 23px;
+	margin: 7px 0 0 16px !important;
+	margin: 7px 0 0 8px;
+	padding: 18px 0 0 40px;
+	color: #666666;
+	word-spacing: 6px;
+	font-size: 13px;
+}
+
+.shadeHRLContent {
+	
+}

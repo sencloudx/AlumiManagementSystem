@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>教师登录</title>
+	<link href="css/login-style.css" type="text/css" rel="stylesheet" />
+	<script type = "text/javascript">
+		function check(){
+			var admName = document.getElementById("admName").value;
+			var admPsw = document.getElementById("admPsw").value;
+			if(admName == ""|| admPsw == ""){
+				alert("请将登录信息填写完整");
+				return false;
+			}
+		}
+	</script>
+</head>
+<body>
+<center>
+	<div id="wrap">
+		<form method="post" action="adminloginaction.action" onsubmit = "return check();">
+		  <div id="login_top"></div>
+		  <div id="login_center">
+		    <div id="login">
+				  <p><input name="admName" id = "admName" type="text" class="text"/></p>
+				  <p>
+				    <input name="admPsw" id = "admPsw" type="password" class="text"/></p>
+				    <p>
+				    <font color=red>
+					</font>
+					</p>
+					 <p style="color:#4d648d; font-weight:bold;">
+                    <input type="radio" name = "user" checked="checked" value = 0>管理员<input type="radio" name = "user" value = 1>校友
+                    </p>
+			</div>
+		  </div>
+		 </form>
+	</div>
+</center>
+</body>
+</html>
