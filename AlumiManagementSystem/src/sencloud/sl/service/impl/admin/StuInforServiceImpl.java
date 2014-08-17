@@ -67,12 +67,12 @@ public class StuInforServiceImpl implements StuInforService {
 	}
 
 	@Override
-	public void thoroughDelete(String idStr) {
-		String[] ids = idStr.split("-");
-		for(String id: ids){
-			StuInfor stuInfor = stuInforDAO.findById(Integer.valueOf(id));
+	public void thoroughDelete(Integer[] ids) {
+		//String[] ids = idStr.split("-");
+		for(Integer id: ids){
+			StuInfor stuInfor = stuInforDAO.findById(id);
 			log.info("成功进行校友的删除，删除的校友姓名为  "+stuInfor.getStuName()+", 学号为  "+stuInfor.getStuNum());
-			stuInforDAO.delete(Integer.valueOf(id));
+			stuInforDAO.delete(id);
 		}
 	}
 
@@ -337,6 +337,11 @@ public class StuInforServiceImpl implements StuInforService {
 			data = stuInforDAO.findById(id).getStuNum();
 		}
 		return data;
+	}
+
+	@Override
+	public void delete(Integer id) {
+		stuInforDAO.delete(id);
 	}
 
 }

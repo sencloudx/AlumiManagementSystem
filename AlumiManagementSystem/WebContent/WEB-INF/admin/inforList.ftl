@@ -1,4 +1,7 @@
 <#import "common/tableCommon.ftl" as common>
+<script type="text/javascript">
+
+</script>
 <div class="controltitle">当前操作：信息管理——>学生信息列表</div>
 	&nbsp;&nbsp;&nbsp;&nbsp;<b>视图切换:</b>
 	<select name = "showType" id = "showType" onchange = "return showChange('inforListAction.action');">
@@ -185,17 +188,17 @@
 	<div id = "div_print">
 	<table class="tablefirst" id="radioSub">
 			<col style="width:2%"/>
-			<col style="width:2%"/>
+			<col style="width:5%"/>
    			<col style="width:5%"/>
     		<col style="width:5%"/>
+    		<col style="width:20%"/>
     		<col style="width:8%"/>
-    		<col style="width:8%"/>
     		<col style="width:10%"/>
-    		<col style="width:10%"/>
-    		<col style="width:10%"/>
-    		<col style="width:10%"/>
+    		<col style="width:5%"/>
+    		<col style="width:5%"/>
+    		<col style="width:15%"/>
     		<tr>
-    		<th></th><th>序号</th><th>学生学号</th><th>学生姓名</th><th>所属专业</th><th>毕业年份</th><th>工作单位</th><th>就业省市</th><th>生源地</th><th>操作</th>
+    		<th></th><th>序号</th><th>学生学号</th><th>学生姓名</th><th>所属专业</th><th>所在班级</th><th>毕业年份</th><th>工作单位</th><th>就业省市</th><th>生源地</th><th>操作</th>
     		</tr>
 			<#if inforList?exists>
 		   	<#list inforList as infor>
@@ -205,6 +208,7 @@
 	            <td>${(infor.stuNum)?default("")}</td>
 	            <td>${(infor.stuName)?default("")}</td>
 	            <td>${(infor.major.majorName)?default("")}</td>
+	            <td>${(infor.classes.classesName)?default("")}</td>
 	            <td>${infor.stuEndTime?default("")}</td>
 	            <td>${(infor.stuWorkPlace)?default("")}</td>
 	            <td>${(infor.stuWorkAddress)?default("")}</td>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sencloud.sl.entity.Contacts" table="contacts" catalog="infor_manage">
+        <id name="contactsId" type="java.lang.Integer">
+            <column name="contacts_id" />
+            <generator class="identity"></generator>
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="user_name" length="10" />
+        </property>
+        <property name="contactPhoneNum" type="java.lang.String">
+            <column name="contacts_phoneNum" length="15" />
+        </property>
+        <property name="contactAddress" type="java.lang.String">
+            <column name="contacts_address" length="100" />
+        </property>
+        <property name="userId" type="java.lang.Integer">
+            <column name="user_id" length="100" />
+        </property>
+        <property name="currentUserId" type="java.lang.Integer">
+            <column name="current_user_id" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

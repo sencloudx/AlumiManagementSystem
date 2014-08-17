@@ -50,4 +50,8 @@
     <bean id="questionnaireService" class="sencloud.sl.service.impl.admin.QuestionnaireServiceImpl" >
     	<property name="questionnaireDAO" ref="questionnaireDAO"></property>
     </bean>
+    
+    <bean id="contactsService" class="sencloud.sl.service.impl.admin.ContactsServiceImpl" >
+    	<property name="contactsDAO" ref="contactsDAO"></property>
+    </bean>
 </beans>

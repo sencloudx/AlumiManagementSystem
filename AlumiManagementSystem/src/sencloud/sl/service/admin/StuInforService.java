@@ -35,7 +35,7 @@ public interface StuInforService {
 	/**
 	 * 对信息进行彻底的删除
 	 * */
-	public void thoroughDelete(String idStr);
+	public void thoroughDelete(Integer[] ids);
 	/**
 	 * 对信息进行更新
 	 * */
@@ -80,4 +80,6 @@ public interface StuInforService {
 	  * 根据类型和编号查找学生
 	  * */
 	 public String getStuName(String type, Integer id);
+	 
+	 public void delete(Integer id);
 }

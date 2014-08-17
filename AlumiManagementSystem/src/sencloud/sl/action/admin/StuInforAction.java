@@ -18,12 +18,14 @@ import sencloud.sl.base.BaseAction;
 import sencloud.sl.commons.CommonValue;
 import sencloud.sl.entity.Admin;
 import sencloud.sl.entity.Classes;
+import sencloud.sl.entity.Contacts;
 import sencloud.sl.entity.DocProtitle;
 import sencloud.sl.entity.Major;
 import sencloud.sl.entity.StuInfor;
 import sencloud.sl.entity.TeaProtitle;
 import sencloud.sl.util.FileUtil;
 import sencloud.sl.util.PageUtil;
+import sencloud.sl.util.SCUtils;
 
 
 import com.opensymphony.xwork2.ActionContext;
@@ -40,6 +42,7 @@ public class StuInforAction extends BaseAction{
 	private List<Major> majorList = new ArrayList<Major>();
 	private List<StuInfor> inforList;
 	private List<StuInfor> stuList = new ArrayList<StuInfor>();
+	private List<Contacts> contactsList = new ArrayList<Contacts>();
 	private String password;
 	private Integer classesId;
 	private String classesStr;
@@ -79,6 +82,8 @@ public class StuInforAction extends BaseAction{
 	private List<TeaProtitle> teaProtitleList;
 	private Integer teaProtitleId;
 	private Integer docProtitleId;
+	private Integer userId;
+	private Integer[] ids;
 	
 	
 	/**
@@ -90,11 +95,14 @@ public class StuInforAction extends BaseAction{
 		 * 这里使用log时并没有直接使用log.debug，而是先进行判断，因为如果判断为false，那个该方法在编译的时候能直接将该代码块删除，
 		 * 执行效率会提高，（C1）
 		 * */
-		if("联络员".equals(ActionContext.getContext().getSession().get("adminType"))){
+		if("联络员".equals(ActionContext.getContext().getSession().get("adminType")) || "普通校友".equals(ActionContext.getContext().getSession().get("adminType"))){
 			Integer userId = (Integer)ActionContext.getContext().getSession().get("userId");
 			classesId = stuInforService.getInforById(userId).getClasses().getClassesId();
 			System.out.println("班级id是 = "+classesId);
 		}
+//		Integer userId = (Integer)ActionContext.getContext().getSession().get("userId");
+//		classesId = stuInforService.getInforById(userId).getClasses().getClassesId();
+//		System.out.println("班级id是 = "+classesId);
 		//进行数据的初始化
 		initialize();
 		//总的信息条数
@@ -162,6 +170,7 @@ public class StuInforAction extends BaseAction{
 			String psw = null;
 			if(stuInfor.getStuSfzh() != null && !"".equals(stuInfor.getStuSfzh()) && stuInfor.getStuSfzh().length() > 6){
 				psw = stuInfor.getStuSfzh().substring(stuInfor.getStuSfzh().length()-6,stuInfor.getStuSfzh().length());
+				psw = SCUtils.encryptBasedMd5(psw);
 			}
 			stuInfor.setPassword(psw);
 			//职称
@@ -171,12 +180,10 @@ public class StuInforAction extends BaseAction{
 			stuInfor.setTeaProtitle(teaProtitle);
 			stuInforService.save(stuInfor);
 			log.info("成功进行校友的添加，添加的校友姓名为  "+stuInfor.getStuName()+", 学号为  "+stuInfor.getStuNum());
-			response = "{success:true,msg:'恭喜：已成功进行存储'}";
-			response=new String(response.getBytes("ISO-8859-1"),"utf-8");
+			response = "{success:true,msg:'OK'}";
 		}catch (Exception e) {
 			e.printStackTrace();
-			response = "{success:false,msg:'sorry：失败，请重新存储'}";
-			response=new String(response.getBytes("ISO-8859-1"),"utf-8");
+			response = "{success:false,msg:'sorry：Failed'}";
 		}
 		
 		return SUCCESS;
@@ -196,11 +203,16 @@ public class StuInforAction extends BaseAction{
 	 * */
 	public String thoroughDelete(){
 		try{
-			stuInforService.thoroughDelete(idStr);
-			response = "{success:true,msg:'恭喜：已成功进行删除'}";
+			//stuInforService.thoroughDelete(ids);
+			if(ids != null && ids.length > 0){
+				for(Integer id : ids){
+					stuInforService.delete(id);
+				}
+			}
+			response = "{success:true,msg:'OK'}";
 		}catch (Exception e) {
 			e.printStackTrace();
-			response = "{success:false,msg:'sorry：失败，请重新删除'}";
+			response = "{success:false,msg:'sorry：Failed'}";
 		}
 		return SUCCESS;
 	}
@@ -217,19 +229,19 @@ public class StuInforAction extends BaseAction{
 			stuInfor.setDeleteType("1");
 			stuInfor.setClasses(classesService.getClassesById(classesId));
 			stuInfor.setMajor(majorService.getMajorById(Integer.valueOf(major)));
-			if(docProtitleId != 0){
-				stuInfor.setDocProtitle(commonService.findById(DocProtitle.class, docProtitleId));
-			}
-			if(teaProtitleId != 0){
-				stuInfor.setTeaProtitle(commonService.findById(TeaProtitle.class, teaProtitleId));
-			}
+//			if(docProtitleId != 0){
+//				stuInfor.setDocProtitle(commonService.findById(DocProtitle.class, docProtitleId));
+//			}
+//			if(teaProtitleId != 0){
+//				stuInfor.setTeaProtitle(commonService.findById(TeaProtitle.class, teaProtitleId));
+//			}
 			stuInfor.setPassword(password);
 			stuInforService.update(stuInfor);
 			log.info("信息的更改，更改的校友姓名为  "+stuInfor.getStuName()+", 学号为  "+stuInfor.getStuNum());
-			response = "{success:true,msg:'恭喜：已成功进行修改'}";
+			response = "{success:true,msg:'OK'}";
 		}catch (Exception e) {
 			e.printStackTrace();
-			response = "{success:false,msg:'sorry：失败，请重新修改'}";
+			response = "{success:false,msg:'Failed'}";
 		}
 		return SUCCESS;
 	}
@@ -241,10 +253,10 @@ public class StuInforAction extends BaseAction{
 		try{
 			stuInforService.updateDeleteSign(idStr, type);
 			System.out.println("已成功还原");
-			response = "{success:true,msg:'恭喜：已成功放入垃圾箱'}";
+			response = "{success:true,msg:'OK'}";
 		}catch (Exception e) {
 			e.printStackTrace();
-			response = "{success:false,msg:'sorry：失败，你重试'}";
+			response = "{success:false,msg:'sorry：Failed'}";
 		}
 		return SUCCESS;
 	}
@@ -472,8 +484,50 @@ public class StuInforAction extends BaseAction{
 			majorList = majorService.getMajorList();
 		}
 	}
+
+	/**
+	 * 添加至通讯录
+	 * @return
+	 */
+	public String add2Contacts(){
+		log.info("添加至通讯录的用户id：   "+ userId);
+		try {
+			StuInfor stuInfo = stuInforService.getInforById(userId);
+			Contacts contacts = new Contacts();
+			contacts.setUserName(stuInfo.getStuName());
+			contacts.setContactAddress(stuInfo.getStuWorkAddress());
+			contacts.setContactPhoneNum(stuInfo.getStuTelephone());
+			contacts.setUserId(stuInfo.getStuId());
+			Integer currentUserId = (Integer)ActionContext.getContext().getSession().get("userId");
+			contacts.setCurrentUserId(currentUserId);
+			Contacts contactsExist = contactsService.getContactsByUserId(stuInfo.getStuId());
+			if(contactsExist != null){
+				contactsExist.setContactAddress(stuInfo.getStuWorkAddress());
+				contactsExist.setContactPhoneNum(stuInfo.getStuTelephone());
+				contactsExist.setUserId(stuInfo.getStuId());
+				contactsExist.setCurrentUserId(currentUserId);
+				contactsExist.setUserName(stuInfo.getStuName());
+				contactsService.updata(contactsExist);
+			}else{
+				contactsService.save(contacts);
+			}
+			response = "{success:true}";
+		} catch (Exception e) {
+			response = "{success:false}";
+		}
+		return SUCCESS;
+	}
 	
-	
+	public String myContactsList(){
+		Integer currentUserId = (Integer)ActionContext.getContext().getSession().get("userId");
+		totalRecord = contactsService.getContactsNum(currentUserId);
+		PageUtil pageUtil = new PageUtil(currentPage, totalRecord);
+		//总的页面数
+		totalPages = pageUtil.getTotalPages();
+		contactsService.queryContactsPage(currentUserId, pageUtil.getPageFirRecord(), pageUtil.getShowRecordNum());
+		contactsList = contactsService.queryContactsList(currentUserId);
+		return SUCCESS;
+	}
 	
 	/**
 	 * 以下是get与set方法
@@ -713,6 +767,24 @@ public class StuInforAction extends BaseAction{
 	}
 	public void setDocProtitleId(Integer docProtitleId) {
 		this.docProtitleId = docProtitleId;
+	}
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public List<Contacts> getContactsList() {
+		return contactsList;
+	}
+	public void setContactsList(List<Contacts> contactsList) {
+		this.contactsList = contactsList;
+	}
+	public Integer[] getIds() {
+		return ids;
+	}
+	public void setIds(Integer[] ids) {
+		this.ids = ids;
 	}
 	
 }

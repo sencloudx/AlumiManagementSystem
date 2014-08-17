@@ -10,7 +10,7 @@
 	<div class="out_ba_examinee_table_outa">
 		<div class="out_ba_examinee_table_one">
 		<div class="table_bordre">
-		      <img src="/AlumiManagementSystem/images/passlogo.jpg" width="590"/>
+		    <span>信息详情</span>
 		</div>
 		<table  class="bs_examinee_table">
 		   <col class="bs_examinee_fir"/>
@@ -67,12 +67,14 @@
 				<td>工作职务:</td>
 				<td>${stuInfor.stuWorkZc?default("")}</td>
 			</tr>
+			<!--
 			<tr>
 			    <td>医师职称:</td>
 				<td>${(stuInfor.docProtitle.docProtitleName)?default("")}</td>
 				<td>教师职称:</td>
 				<td>${(stuInfor.teaProtitle.teaProtitleName)?default("")}</td>
 			</tr>
+			-->
 			<tr>
 			    <td>办公电话:</td>
 				<td>${stuInfor.stuPhone?default("")}</td>

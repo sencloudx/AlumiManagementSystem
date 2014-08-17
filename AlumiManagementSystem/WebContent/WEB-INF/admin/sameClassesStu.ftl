@@ -1,5 +1,5 @@
 <#import "common/tableCommon.ftl" as common>
-<div class="controltitle">当前操作：信息管理——>[${classes.classesName}]学生信息列表</div>
+<div class="controltitle">当前操作：信息管理——>[${classes.classesName!}]学生信息列表</div>
 	&nbsp;&nbsp;&nbsp;&nbsp;<b>视图切换:</b>
 	<select name = "showType" id = "showType" onchange = "return showChange('sameClassesInforListAction.action');">
     		<option value="0" selected="selected">正常</option>
@@ -86,7 +86,7 @@
 			<option value="台湾" <#if "台湾" == address> selected = "selected" </#if>>台湾</option>
 			<option value="广西" <#if "广西" == address> selected = "selected" </#if>>广西</option>
 	</select>
-	<span style="float:right; margin-right:10px; margin-top:-25px">
+	<span style="float:right; margin-right:10px;">
 	<table border="0" cellpadding="0" cellspacing="0" class="tab_search">
 			<tr>
 				<td>
@@ -110,7 +110,6 @@
 	</span>
 	<hr/>
 	<p>
-	<span class="content_button_a_left" onclick="commonShow(this, 650, 580, 'showExportExcelAction.action')">发送邮件</span>
 	
 	<span class="content_button_a_right" onclick="commonShow(this, 650, 580, 'showExportExcelAction.action')">信息导出[excel]</span>
 	<span class="content_button_a_right" onclick="showPrint('showPrintAction.action');">信息导出[打印机]</span>
@@ -126,50 +125,48 @@
 	<br>
 	<span>
 	&nbsp;&nbsp;<b>视图人数：</b><font color = "red">[${totalRecord}]</font>
-	&nbsp;&nbsp;<b>眼博：</b><font color = "red">[${eyeb}]</font>
-	&nbsp;&nbsp;<b>眼硕：</b><font color = "red">[${eyes}]</font>
-	&nbsp;&nbsp;<b>眼7：</b><font color = "red">[${eye7}]</font>
-	&nbsp;&nbsp;<b>眼5：</b><font color = "red">[${eye5}]</font>
-	&nbsp;&nbsp;<b>眼3：</b><font color = "red">[${eye3}]</font>
-	&nbsp;&nbsp;<b>教职工：</b><font color = "red">[${eyetea}]</font>
-	&nbsp;&nbsp;<b>继续教育：</b><font color = "red">[${eyejx}]</font>
 	</span>
 	<@common.pageList actionName="sameClassesInforListAction.action"></@common.pageList>
 	</p>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<div id = "div_print">
+	<div class="batchAdd2Contacts" onclick="bathAdd2Contacts('${Session.adminNum}')"><span class="addspan">批量加入通讯录</span></div>
 	<table class="tablefirst" id="radioSub">
 			<col style="width:3%"/>
 			<col style="width:3%"/>
    			<col style="width:5%"/>
     		<col style="width:5%"/>
+    		<col style="width:15%"/>
     		<col style="width:8%"/>
-    		<col style="width:8%"/>
     		<col style="width:10%"/>
-    		<col style="width:10%"/>
-    		<col style="width:10%"/>
+    		<col style="width:5%"/>
+    		<col style="width:12%"/>
     		<tr>
     		<th></th><th>序号</th><th>学生学号</th><th>学生姓名</th><th>所属专业</th><th>毕业年份</th><th>工作单位</th><th>就业省市</th><th>操作</th>
     		</tr>
 			<#if inforList?exists>
 		   	<#list inforList as infor>
-		   	<tr <#if infor.deleteType == "1">onmouseover="bgColor='#9ad6fb'" onmouseout="bgColor='#ffffff'"<#else>bgColor='#cccccc'</#if>>
-		   		<td><input type="checkbox" name="id" value="${infor.stuId}"/></td>
-		   		<td>${infor_index+1}</td>
-	            <td>${infor.stuNum}</td>
-	            <td>${infor.stuName}</td>
-	            <td>${infor.major.majorName}</td>
-	            <td>${infor.stuEndTime}</td>
-	            <td>${infor.stuWorkPlace}</td>
-	            <td>${infor.stuWorkAddress}</td>
-	            <td>
-	            	<span class="editspan" onclick="seeDetail('${infor.stuId}',this,650, 580,'showInforDetailAction.action')">信息详情</span>&nbsp;&nbsp;&nbsp;&nbsp;
-	            	<span class="editspan" onclick="seeDetail('${infor.stuId}',this,650, 580,'showInforUpdateAction.action')">修改</span>&nbsp;&nbsp;&nbsp;&nbsp;
-	            </td>
-		   	</tr>
+		   	    <tr <#if infor.deleteType == "1">onmouseover="bgColor='#9ad6fb'" onmouseout="bgColor='#ffffff'"<#else>bgColor='#cccccc'</#if>>
+				   		<td><input <#if Session.adminNum == infor.stuNum>type="hidden" value="${infor.stuNum}"<#else>type="checkbox" value="${infor.stuId}"</#if>  name="id" /></td>
+				   		<td>${infor_index+1}</td>
+			            <td>${infor.stuNum}</td>
+			            <td>${infor.stuName}</td>
+			            <td>${infor.major.majorName}</td>
+			            <td>${infor.stuEndTime}</td>
+			            <td>${infor.stuWorkPlace}</td>
+			            <td>${infor.stuWorkAddress}</td>
+			            <td>
+			            	<span class="editspan" onclick="seeDetail('${infor.stuId}',this,650, 580,'showInforDetailAction.action')">信息详情</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			            	<#if Session.adminName != infor.stuName>
+	   	        	            <span class="addspan" onclick="add2Contact('${infor.stuId}')">添加至通讯录</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		   	                </#if>
+			            </td>
+				   	</tr>
 		   	</#list>
 		   	</#if>
 </table>
 </div>
 <@common.pageList actionName="sameClassesInforListAction.action"></@common.pageList>
 <div class="shadeHiddenBlock" id="subDetail" style="dispaly:none;"></div>
+<span class="content_button_a_left" onclick="allSelect('id')">全选</span>
+<span class="content_button_a_left" onclick="invertSelect('id')">反选</span>

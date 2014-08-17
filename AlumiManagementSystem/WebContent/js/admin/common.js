@@ -125,7 +125,7 @@ function batchDelete(delTagAction, listTagAction){
 	$("input[name='id']:checked").each(function(i,obj){
 		ids[i]=$(obj).val();
 	});
-	var idStr=ids.join("-");
+	//var idStr=ids.join("-");
 	//alert(idStr);
 	//return false;
 	if(currentPage == undefined){
@@ -136,7 +136,7 @@ function batchDelete(delTagAction, listTagAction){
 		url:delTagAction,
 		data:{
 			sendTime:(new Date()).getTime(),
-			idStr:idStr
+			ids:ids
 		},
 		type:"post",
 		async:false,
@@ -674,5 +674,293 @@ function validateExcelUpLoadFile(form) {
 	}
 }
 
+/**
+ * 添加通讯录
+ * @param userId
+ */
+function add2Contact(userId){
+	$.ajax({
+		url: 'add2Contact.action',
+		type: "post",
+		data: {
+			userId:userId
+		},
+		dataType: "json",
+		cache: false,
+		async: false,
+		success: function(data) {
+			if(data.success){
+				alert("添加成功！");
+			}else{
+				alert("添加失败");
+			}
+		}
+	});
+}
 
+/**
+ * 删除通讯录
+ * @param contactsId
+ */
+function deleteContacts(contactsId){
+	if(confirm("是否确认删除")){
+		$.ajax({
+			url:'deleteContacts.action',
+			type:'post',
+			data:{
+				contactsId:contactsId
+			},
+			dataType: "json",
+			cache: false,
+			async: false,
+			success:function(data){
+				if(data.success){
+					alert("删除成功！");
+					$("#middle").load('myContactsList.action',
+					{
+						sendTime:(new Date()).getTime()
+					});
+				}else{
+					alert("删除失败");
+				}
+			}
+		});
+	}else{
+		return false;
+	}
+	
+}
 
+/**
+ * 添加通讯录
+ */
+function addContacts(){
+	var left = ($("#middle").width() - $(".contactsWindow").width())/2;
+	$(".widowTitle span").text("新增通讯录");
+	$(".contactsWindow").css({'left':left+'px'});
+	$(".overbg").fadeIn("normal");
+	$(".contactsWindow").fadeIn("normal");
+}
+
+/**
+ * 关闭弹出窗
+ */
+function closeWindow(){
+	$(".contactsWindow").fadeOut("normal");
+	$(".overbg").fadeOut("normal");
+	reset();
+}
+
+function checkContacts(){
+	var userName = $("#userName").val();
+	var contactPhoneNum = $("#contactPhoneNum").val();
+	var regular = /1[3-8]+\d{9}/;
+	if(!userName){
+		$("#errorUserName").text("用户名不能为空");
+		$("#errorUserName").fadeIn("normal");
+		$("#userName").focus();
+		return false;
+	}else if(!contactPhoneNum){
+		$("#errorUserName").text("");
+		$("#errorUserName").fadeOut("normal");
+		$("#errorPhoneNum").text("手机号码不能为空");
+		$("#errorPhoneNum").fadeIn("normal");
+		$("#contactPhoneNum").focus();
+		return false;
+	}else if(!regular.test(contactPhoneNum)){
+		$("#errorUserName").text("");
+		$("#errorUserName").fadeOut("normal");
+		$("#errorPhoneNum").text("手机号码格式不对");
+		$("#errorPhoneNum").fadeIn("normal");
+		$("#contactPhoneNum").focus();
+		return false;
+	}
+	return true;
+}
+
+/**
+ * 添加通讯录提交
+ * @returns {Boolean}
+ */
+function addContactsSubmit(){
+	var userName = $("#userName").val();
+	var contactPhoneNum = $("#contactPhoneNum").val();
+	var contactAddress = $("#contactAddress").val();
+	if(checkContacts()){
+		$.ajax({
+			url:'addContacts.action',
+			type:'post',
+			data:{
+				userName:userName,
+				contactPhoneNum:contactPhoneNum,
+				contactAddress:contactAddress
+			},
+			dataType: "json",
+			cache: false,
+			async: false,
+			success:function(data){
+				if(data.success){
+					closeWindow();
+					alert("添加成功成功！");
+					$("#middle").load('myContactsList.action',
+					{
+						sendTime:(new Date()).getTime()
+					});
+				}else{
+					alert("删除失败");
+				}
+			}
+		});
+	}
+}
+
+function reset(){
+	$("#userName").val("");
+	$("#contactPhoneNum").val("");
+	$("#contactAddress").val();
+	$("#errorPhoneNum").text("");
+	$("#errorUserName").text("");
+	$("#contactAddress").val("");
+}
+
+/**
+ * 批量删除通讯录
+ */
+function batchDeleteContacts(){
+	var ids = new Array();
+	if($("input[name='id']:checked").size()==0){
+		alert("请先选择要删除的学生！");
+		return false;
+	}
+	$("input[name='id']:checked").each(function(i,obj){
+		ids.push($(obj).val());
+	});
+	if(confirm("是否确认删除")){
+		$.ajax({
+			url:'batchDeleteContacts.action',
+			type:'post',
+			data:{
+				ids:ids
+			},
+			dataType: "json",
+			cache: false,
+			async: false,
+			success:function(data){
+				if(data.success){
+					alert("删除成功！");
+					$("#middle").load('myContactsList.action',
+					{
+						sendTime:(new Date()).getTime()
+					});
+				}else{
+					alert("删除失败");
+				}
+			}
+		});
+	}else{
+		return false;
+	}
+	
+}
+/**
+ * 全选
+ */
+function checkAll(){
+	if($("#checkAll").checked){
+		$("input[name='id']").each(function(){
+			this.checked = true;
+		});
+	}else{
+		$("input[name='id']").each(function(){
+			this.checked = false;
+		});
+	}
+}
+
+/**
+ * 修改通讯录
+ * @param contactsId
+ */
+function modifyContacts(contactsId){
+	var left = ($("#middle").width() - $(".contactsWindow").width())/2;
+	$(".contactsWindow").css({'left':left+'px'});
+	$(".widowTitle span").text("修改通讯录");
+	var userName = $("#userName_" + contactsId).html();
+	var contactPhoneNum = $("#contactPhoneNum_" + contactsId).html();
+	var contactAddress = $("#contactAddress_" + contactsId).html();
+	$("#userName").val(userName);
+	$("#contactPhoneNum").val(contactPhoneNum);
+	$("#contactAddress").val(contactAddress);
+	$("#contactsId").val(contactsId);
+	$(".editBtn").fadeIn("normal");
+	$(".addBtn").fadeOut("normal");
+	$(".overbg").fadeIn("normal");
+	$(".contactsWindow").fadeIn("normal");
+}
+
+/**
+ * 修改通讯录提交
+ * @param contactsId
+ */
+function eidtContactsSubmit(){
+	var userName = $("#userName").val();
+	var contactPhoneNum = $("#contactPhoneNum").val();
+	var contactAddress = $("#contactAddress").val();
+	var contactsId = $("#contactsId").val();
+	if(checkContacts()){
+		$.ajax({
+			url:'updataContacts.action',
+			type:'post',
+			data:{
+				userName:userName,
+				contactPhoneNum:contactPhoneNum,
+				contactAddress:contactAddress,
+				contactsId:contactsId
+			},
+			dataType: "json",
+			cache: false,
+			async: false,
+			success:function(data){
+				if(data.success){
+					alert("修改成功");
+					$("#middle").load('myContactsList.action',
+					{
+						sendTime:(new Date()).getTime()
+					});
+				}else{
+					alert("修改失败");
+				}
+			}
+		});
+	}
+}
+
+function bathAdd2Contacts(currentId){
+	var ids = new Array();
+	if($("input[name='id']:checked").size()==0){
+		alert("请先选择需要加入通讯录的校友！");
+		return false;
+	}
+	$("input[name='id']:checked").each(function(i,obj){
+		if($(obj).val() != currentId){
+			ids.push($(obj).val());
+		}
+	});
+	$.ajax({
+		url:'batchAdd2Contacts.action',
+		type:'post',
+		data:{
+			ids:ids
+		},
+		dataType: "json",
+		cache: false,
+		async: false,
+		success:function(data){
+			if(data.success){
+				alert("加入成功！");
+			}else{
+				alert("加入失败");
+			}
+		}
+	});
+}

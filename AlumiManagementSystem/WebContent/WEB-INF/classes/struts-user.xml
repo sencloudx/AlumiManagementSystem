@@ -36,5 +36,47 @@
       		<result name="success">/WEB-INF/responseMsg.jsp</result>
       		<interceptor-ref name="mydefault"></interceptor-ref> 
       	</action>
+      	
+      	<!-- 添加至通讯录 -->
+      	<action name="add2Contact" class="sencloud.sl.action.admin.StuInforAction" method = "add2Contacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	<!-- 通讯录列表 -->
+      	<action name="myContactsList" class="sencloud.sl.action.admin.StuInforAction" method = "myContactsList">
+      		<result name="success" type="freemarker">/WEB-INF/contacts/contactsList.ftl</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 通讯录增删改 -->
+      	<!-- 通讯录列表 -->
+      	<action name="addContacts" class="sencloud.sl.action.contacts.ContactsAction" method = "addContacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 删除通讯录 -->
+      	<action name="deleteContacts" class="sencloud.sl.action.contacts.ContactsAction" method = "deleteContacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 批量删除通讯录 -->
+      	<action name="batchDeleteContacts" class="sencloud.sl.action.contacts.ContactsAction" method = "batchDeleteContacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 修改通讯录 -->
+      	<action name="updataContacts" class="sencloud.sl.action.contacts.ContactsAction" method = "updataContacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
+      	
+      	<!-- 批量添加通讯录 -->
+      	<action name="batchAdd2Contacts" class="sencloud.sl.action.contacts.ContactsAction" method = "batchAdd2Contacts">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
    </package>
 </struts>

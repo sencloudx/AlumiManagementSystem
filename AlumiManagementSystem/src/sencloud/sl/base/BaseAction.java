@@ -5,6 +5,7 @@ import java.util.List;
 import sencloud.sl.service.admin.AdminService;
 import sencloud.sl.service.admin.ClassesService;
 import sencloud.sl.service.admin.CommonService;
+import sencloud.sl.service.admin.ContactsService;
 import sencloud.sl.service.admin.ExcelBatchInput;
 import sencloud.sl.service.admin.LoginService;
 import sencloud.sl.service.admin.MajorService;
@@ -48,7 +49,16 @@ public class BaseAction extends ActionSupport {
 	protected AdminService adminService;
 	protected CommonService commonService;
 	protected QuestionnaireService questionnaireService;
+	protected ContactsService contactsService;
 	
+	public ContactsService getContactsService() {
+		return contactsService;
+	}
+
+	public void setContactsService(ContactsService contactsService) {
+		this.contactsService = contactsService;
+	}
+
 	public ExcelBatchInput getExcelBatchInput() {
 		return excelBatchInput;
 	}
@@ -185,7 +195,4 @@ public class BaseAction extends ActionSupport {
 	public void setQuestionnaireService(QuestionnaireService questionnaireService) {
 		this.questionnaireService = questionnaireService;
 	}
-	
-	
-	
 }

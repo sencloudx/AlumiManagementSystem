@@ -2,6 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.tablefirst td{
+    text-align: left;
+}
+</style>
 </head>
 <div class="controltitle">当前操作：信息管理——>添加学生信息</div>
 <form action ="inforAddAction.action" method ="POST" name="inforAdd" enctype="multipart/form-data" id="inforAddForm">
@@ -186,6 +191,10 @@ $("#addSubmit").click(function(){
 		    success: inforAddResponse 
 		};
 		$("#inforAddForm").ajaxSubmit(options);
+		$("#middle").load('inforListAction.action',
+		{
+			sendTime:(new Date()).getTime()
+		});
 		return false;
     }
 });

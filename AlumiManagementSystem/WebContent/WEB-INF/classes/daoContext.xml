@@ -22,4 +22,5 @@
        <bean id="adminDAO" class="sencloud.sl.dao.impl.admin.AdminDAOImpl" parent="baseDAO" />
        <bean id="questionBankDAO" class="sencloud.sl.dao.impl.admin.QuestionBankDAOImpl" parent="baseDAO" />
        <bean id="questionnaireDAO" class="sencloud.sl.dao.impl.admin.QuestionnaireDAOImpl" parent="baseDAO" />
+       <bean id="contactsDAO" class="sencloud.sl.dao.impl.admin.ContactsDAOImpl" parent="baseDAO" />
 </beans>

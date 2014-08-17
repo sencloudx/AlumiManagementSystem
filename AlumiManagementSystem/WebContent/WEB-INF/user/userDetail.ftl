@@ -10,7 +10,7 @@
 	<div class="out_ba_examinee_table_outa">
 		<div class="out_ba_examinee_table_one" style="margin:0 auto">
 		<div class="table_bordre">
-		      <img src="/AlumiManagementSystem/images/passlogo2.jpg" width="590px"/>
+		    <span>信息详情</span>
 		</div>
 		<table  class="bs_examinee_table">
 		   <col class="bs_examinee_fir"/>

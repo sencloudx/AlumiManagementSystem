@@ -10,6 +10,7 @@ import sencloud.sl.dao.admin.MajorDAO;
 import sencloud.sl.dao.admin.StuInforDAO;
 import sencloud.sl.entity.StuInfor;
 import sencloud.sl.service.admin.ExcelBatchInput;
+import sencloud.sl.util.SCUtils;
 
 import jxl.Cell;
 import jxl.CellType;
@@ -183,13 +184,15 @@ public class ExcelBatchInputImpl implements ExcelBatchInput {
 			String psw = "";
 			if(DBValue[17].length() == 18){
 				psw = DBValue[17].substring(12,18);
+				psw = SCUtils.encryptBasedMd5(psw);
 				stuInfor.setPassword(psw);
 			}else if(DBValue[17].length() == 10){
 				psw = DBValue[17].substring(4,10);
+				psw = SCUtils.encryptBasedMd5(psw);
 				stuInfor.setPassword(psw);
 			}else{
 				//如果都不是这两个省份证，则存储学号
-				stuInfor.setPassword(DBValue[1]);
+				stuInfor.setPassword(SCUtils.encryptBasedMd5(DBValue[1]));
 			}
 			
 			stuInfor.setStuPhotoPath("0");

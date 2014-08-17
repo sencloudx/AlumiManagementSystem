@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>学生信息管理</title>
+	<link href="/AlumiManagementSystem/images/icon.png" type="image/x-icon" rel="shortcut icon"/>
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/indexframe.css" />
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/left/sdmenu.css" />
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/backstage.css"/>
@@ -24,7 +25,7 @@
 	<script type="text/javascript" src="/AlumiManagementSystem/js/que.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/search_box/search_box.css"/><#--搜索框的样式-->
-	<script type="text/javascript" src="/AlumiManagementSystem/fckeditor/fckeditor.js"></script><#-- 引入js文件 -->
+	<script type="text/javascript" src="/AlumiManagementSystem/FCKeditor/fckeditor.js"></script><#-- 引入js文件 -->
 	<#-- 样卷视图样式 
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/surveyCss.css"/>-->
 	
@@ -154,6 +155,7 @@
 					<span>我的信息</span>
 					<a href="myInforDetailAction.action">我的信息</a>
 					<a href="showMyInforUpdateAction.action">信息修改</a>
+					<a href="myContactsList.action">我的通讯录</a>
 				</div>
 				</#if>
 			</div>

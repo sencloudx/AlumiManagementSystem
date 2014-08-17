@@ -49,6 +49,7 @@ a:active { /*定义鼠标按下的样式*/
 	padding: 2px 0 0 18px;
 	color: #000000;
 	cursor: pointer;
+	margin-left: 10px;
 }
 
 .detailspan {
@@ -224,6 +225,7 @@ a:active { /*定义鼠标按下的样式*/
 	border: #b9cae4 solid 1px;
 	padding: 3px 0 3px 0;
 	text-indent: 0.8em;
+	text-align: center;
 }
 
 .tablefirst1 {
@@ -459,8 +461,7 @@ a:active { /*定义鼠标按下的样式*/
 }
 
 #r_top {
-	width: 100%;
-	height: 100px;
+	min-height:150px;
 	border: #DBEDFF 2px solid;
 	margin-top: 10px;
 }
@@ -475,7 +476,6 @@ a:active { /*定义鼠标按下的样式*/
 #t_left {
 	width: 70%;
 	float: left;
-	height: 100px;
 	padding-left: 40px;
 }
 
@@ -547,9 +547,9 @@ a:active { /*定义鼠标按下的样式*/
 
 /*试卷标题*/
 .sj_title {
-	width: 123px;
-	height: 44px;
+	width: 100%;
 	background: url(/AlumiManagementSystem/images/sj_title.jpg) no-repeat;
+	float: left;
 }
 
 .sj_title2 {
@@ -563,4 +563,14 @@ ul {
 
 .myLi {
 	background-color: #FF0000;
+}
+
+.addspan{
+	background: url(/AlumiManagementSystem/images/admin/add.png) no-repeat center left;
+	padding: 2px 0 0 20px;
+	cursor: pointer;
+}
+
+.contact_options{
+	margin: 10px 10px 5px 5px;
 }
