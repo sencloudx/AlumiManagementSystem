@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-	<title>学生信息管理</title>
+	<title>校友管理系统</title>
 	<link href="/AlumiManagementSystem/images/icon.png" type="image/x-icon" rel="shortcut icon"/>
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/indexframe.css" />
 	<link rel="stylesheet" type="text/css" href="/AlumiManagementSystem/css/admin/left/sdmenu.css" />
