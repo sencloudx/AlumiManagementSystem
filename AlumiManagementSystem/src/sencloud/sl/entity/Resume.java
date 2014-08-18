@@ -18,61 +18,49 @@ public class Resume {
 	private String resumeDesc;
 	private Integer userId;
 
-	public Resume(Integer resumeId, String timeInterval, String resumeTitle,
-			String resumeDesc, String resumeMark, Integer user) {
+	public Resume(Integer resumeId, String timeInterval, String resumeCompany,
+			String resumePost, String resumeDesc, Integer userId) {
 		super();
 		this.resumeId = resumeId;
 		this.timeInterval = timeInterval;
-		this.resumeCompany = resumeTitle;
-		this.resumePost = resumeDesc;
-		this.resumeDesc = resumeMark;
+		this.resumeCompany = resumeCompany;
+		this.resumePost = resumePost;
+		this.resumeDesc = resumeDesc;
 		this.userId = userId;
 	}
-
 	public Integer getResumeId() {
 		return resumeId;
 	}
-
 	public void setResumeId(Integer resumeId) {
 		this.resumeId = resumeId;
 	}
-
 	public String getTimeInterval() {
 		return timeInterval;
 	}
-
 	public void setTimeInterval(String timeInterval) {
 		this.timeInterval = timeInterval;
 	}
-
-	public String getResumeTitle() {
+	public String getResumeCompany() {
 		return resumeCompany;
 	}
-
-	public void setResumeTitle(String resumeTitle) {
-		this.resumeCompany = resumeTitle;
+	public void setResumeCompany(String resumeCompany) {
+		this.resumeCompany = resumeCompany;
 	}
-
-	public String getResumeDesc() {
+	public String getResumePost() {
 		return resumePost;
 	}
-
-	public void setResumeDesc(String resumeDesc) {
-		this.resumePost = resumeDesc;
+	public void setResumePost(String resumePost) {
+		this.resumePost = resumePost;
 	}
-
-	public String getResumeMark() {
+	public String getResumeDesc() {
 		return resumeDesc;
 	}
-
-	public void setResumeMark(String resumeMark) {
-		this.resumeDesc = resumeMark;
+	public void setResumeDesc(String resumeDesc) {
+		this.resumeDesc = resumeDesc;
 	}
-
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
