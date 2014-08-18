@@ -45,7 +45,7 @@
 		<mapping resource="sencloud/sl/entity/TeaProtitle.hbm.xml" />
 		<mapping resource="sencloud/sl/entity/QuestionBank.hbm.xml" />
 		<mapping resource="sencloud/sl/entity/contacts.hbm.xml" />
-		<mapping resource="sencloud/sl/entity/resume.hbm.xml" />
+		<mapping resource="sencloud/sl/entity/Resume.hbm.xml" />
 
 	</session-factory>
 

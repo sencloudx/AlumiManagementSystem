@@ -13,9 +13,9 @@ public class Resume {
 
 	private Integer resumeId;
 	private String timeInterval;
-	private String resumeTitle;
+	private String resumeCompany;
+	private String resumePost;
 	private String resumeDesc;
-	private String resumeMark;
 	private Integer userId;
 
 	public Resume(Integer resumeId, String timeInterval, String resumeTitle,
@@ -23,9 +23,9 @@ public class Resume {
 		super();
 		this.resumeId = resumeId;
 		this.timeInterval = timeInterval;
-		this.resumeTitle = resumeTitle;
-		this.resumeDesc = resumeDesc;
-		this.resumeMark = resumeMark;
+		this.resumeCompany = resumeTitle;
+		this.resumePost = resumeDesc;
+		this.resumeDesc = resumeMark;
 		this.userId = userId;
 	}
 
@@ -46,27 +46,27 @@ public class Resume {
 	}
 
 	public String getResumeTitle() {
-		return resumeTitle;
+		return resumeCompany;
 	}
 
 	public void setResumeTitle(String resumeTitle) {
-		this.resumeTitle = resumeTitle;
+		this.resumeCompany = resumeTitle;
 	}
 
 	public String getResumeDesc() {
-		return resumeDesc;
+		return resumePost;
 	}
 
 	public void setResumeDesc(String resumeDesc) {
-		this.resumeDesc = resumeDesc;
+		this.resumePost = resumeDesc;
 	}
 
 	public String getResumeMark() {
-		return resumeMark;
+		return resumeDesc;
 	}
 
 	public void setResumeMark(String resumeMark) {
-		this.resumeMark = resumeMark;
+		this.resumeDesc = resumeMark;
 	}
 
 	public Integer getUserId() {

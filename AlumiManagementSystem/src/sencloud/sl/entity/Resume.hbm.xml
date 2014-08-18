@@ -11,14 +11,14 @@
         <property name="timeInterval" type="java.lang.String">
             <column name="time_interval" length="20" />
         </property>
-        <property name="resumeTitle" type="java.lang.String">
-            <column name="resume_title" length="100" />
+        <property name="resumeCompany" type="java.lang.String">
+            <column name="resume_company" length="100" />
+        </property>
+        <property name="resumePost" type="java.lang.String">
+            <column name="resume_post" length="50"/>
         </property>
         <property name="resumeDesc" type="java.lang.String">
             <column name="resume_desc"/>
-        </property>
-        <property name="resumeMark" type="java.lang.String">
-            <column name="resume_mark" length="50" />
         </property>
         <property name="userId" type="java.lang.Integer">
             <column name="user_id" length="100" />
