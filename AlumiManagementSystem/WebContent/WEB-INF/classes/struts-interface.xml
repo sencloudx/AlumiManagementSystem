@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- 定义拦截器 -->
+	    <interceptors>
+	    	<!-- 自定义一个拦截器 -->
+	    	<interceptor name="adminInterceptor" class="sencloud.sl.action.normal.AdminLoginInterceptor"></interceptor>
+	    	<!-- 定义一个拦截器栈，来引入自定义拦截器，这里必须要引入默认的拦截器defaultStack -->
+	    	<interceptor-stack name="mydefault">
+	    		<interceptor-ref name="defaultStack"></interceptor-ref>
+	    		<interceptor-ref name="adminInterceptor"></interceptor-ref>
+	    	</interceptor-stack>
+	    </interceptors>
+	    
+	    <!-- 采用这种方式应用拦截器可以使包下的所有action都能应用到这个拦截器 -->
+	    <default-action-ref name="mydefault"></default-action-ref>
+
+	  	<action name="interfaceJson" class="sencloud.sl.action.app.InterfaceAction" method="doAction">  
+        </action> 
+   </package>
+</struts>

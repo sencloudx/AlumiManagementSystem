@@ -38,9 +38,9 @@ public class LoginServiceImpl implements LoginService {
 		}else if(userType == 1){
 			StuInfor stuInfor = stuInforDAO.getStuInforByNum(admName);
 			if(stuInfor == null){
-				throw new NameNotFoundException();
+				throw new NameNotFoundException("没有此用户");
 			}else if(!(stuInfor.getPassword()).equals(admPsw)){
-				throw new PwNotMatchException();
+				throw new PwNotMatchException("密码或者用户名错误");
 			}else{
 				Map map=new HashMap();
 				map.put("adminName", stuInfor.getStuName());

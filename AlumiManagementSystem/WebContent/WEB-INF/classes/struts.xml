@@ -5,6 +5,7 @@
 	<include file="struts-admin.xml"/>
 	<include file="struts-user.xml"/>
 	<include file="struts-survey.xml"/>
+	<include file="struts-interface.xml"/>
  	<!-- 设置上传的文件大小为 1073741M左右-->
   	<constant name="struts.multipart.maxSize" value="1073741824000"/> 
   	<constant name="struts.i18n.encoding" value="utf-8"></constant>

@@ -8,8 +8,11 @@
             <column name="resume_id" />
             <generator class="identity"></generator>
         </id>
-        <property name="timeInterval" type="java.lang.String">
-            <column name="time_interval" length="20" />
+        <property name="startTM" type="java.lang.String">
+            <column name="start_tm" length="20" />
+        </property>
+         <property name="endTM" type="java.lang.String">
+            <column name="end_tm" length="20" />
         </property>
         <property name="resumeCompany" type="java.lang.String">
             <column name="resume_company" length="100" />
