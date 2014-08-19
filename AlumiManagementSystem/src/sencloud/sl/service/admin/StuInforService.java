@@ -82,4 +82,8 @@ public interface StuInforService {
 	 public String getStuName(String type, Integer id);
 	 
 	 public void delete(Integer id);
+	 /**
+	 * 进行对象的存储
+	 * */
+	public int saveBackId(StuInfor stuInfor);
 }

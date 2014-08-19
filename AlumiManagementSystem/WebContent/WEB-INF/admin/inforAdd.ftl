@@ -1,11 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>学生信息详情</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <style type="text/css">
 .tablefirst td{
     text-align: left;
 }
+
+
 </style>
 </head>
 <div class="controltitle">当前操作：信息管理——>添加学生信息</div>
@@ -154,6 +157,32 @@
 				<td>头像上传：</td>
 		   		<td><input type = "file" name = "upload" id = "upload"></td>
 			</tr>
+			<tr >
+				<th colspan="4" ><center>履历： <span id="countForResume">以创建0份履历</span></center></th>
+			</tr>
+			<tbody id="personresume">
+			<tr name="start_end" class="forchoose">
+				<td>开始时间</td>
+				<td><input type="text" name = "" id="start_time" onFocus="WdatePicker()"></td>
+				<td>结束时间</td>
+				<td><input type="text" id="end_time" onFocus="WdatePicker()"></td>
+			</tr>
+			<tr name="company_job" class="forchoose">
+				<td>所在公司</td>
+				<td><input type="text" name = "resume.resumeCompany" id="company"></td>
+				<td>职务</td>
+				<td><input type="text" name = "resume.resumePost" id="post"></td>
+			</tr>
+			<tr name="person_resume" class="forchoose">
+				<td>个人履历:</td>
+			    <td colspan="4">
+			    	<textarea  rows = "6" cols = "100" name = "resume.resumeDesc" id="desc"></textarea>
+			    	<input type="button" id="addResume" value="确认添加" onClick="add_Resume()"/>
+			    	<input type="text"  id="resumeIdList" name="resumeIdList" style="display:none">
+			    </td>
+			</tr>
+			</tbody>
+			
 </table>
 <input type = "button" id="addSubmit" name = "test" value = "确定存储">
 <input type = "button" name = "test" value = "返回列表" onclick = "showAddBatchSub(0, 'inforListAction.action');">
@@ -185,14 +214,12 @@ function checkAdd(form){
 
 $("#addSubmit").click(function(){
    if(checkForm()){
-        //$("#inforAddForm").submit();
         var options = { 
 		    dataType: 'json',
 		    success: inforAddResponse 
 		};
 		$("#inforAddForm").ajaxSubmit(options);
-		$("#middle").load('inforListAction.action',
-		{
+		$("#middle").load('inforListAction.action',{
 			sendTime:(new Date()).getTime()
 		});
 		return false;
@@ -256,5 +283,19 @@ function inforAddResponse(responseText){
     //$("#inforAddMsg").empty();
     //$("#inforAddMsg").append(responseText.msg);
 }
+
+var idhelper=0;
+function copyResume(){
+	//alert("这个按钮");	
+	idhelper++;
+	var getcopy=$("#personresume").clone();	
+	var newid="personresume"+idhelper;
+	getcopy.attr("id", newid);
+	getcopy.appendTo("#radioSub");
+
+}
+
+
+
 </script>
 </html>

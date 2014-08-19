@@ -42,4 +42,9 @@ public interface StuInforDAO extends GenericDAO<StuInfor>{
 	 * 通过学号来查找该校友
 	 * */
 	public StuInfor getStuInforByNum(String stuNum);
+	/**
+	 * 对象持久化
+	 * */
+	public int makePersistenceBackId(StuInfor stuInfor); 
+	
 }

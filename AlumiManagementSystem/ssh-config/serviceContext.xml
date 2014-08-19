@@ -54,4 +54,8 @@
     <bean id="contactsService" class="sencloud.sl.service.impl.admin.ContactsServiceImpl" >
     	<property name="contactsDAO" ref="contactsDAO"></property>
     </bean>
+    
+    <bean id="resumeService" class="sencloud.sl.service.impl.admin.ResumeServiceImpl" >
+    	<property name="resumeDAO" ref="resumeDAO"></property>
+    </bean>
 </beans>

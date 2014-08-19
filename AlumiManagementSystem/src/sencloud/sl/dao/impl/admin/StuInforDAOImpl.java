@@ -198,4 +198,10 @@ public class StuInforDAOImpl extends GenericHibernateDAO<StuInfor> implements St
 		}
 	}
 
+	@Override
+	public int makePersistenceBackId(StuInfor stuInfor) {
+		this.getHibernateTemplate().save(stuInfor);
+		return stuInfor.getStuId();
+	}
+
 }

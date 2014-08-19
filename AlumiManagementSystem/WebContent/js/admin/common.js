@@ -964,3 +964,43 @@ function bathAdd2Contacts(currentId){
 		}
 	});
 }
+
+
+function add_Resume(){
+	var start_time = $("#start_time").val();
+	var end_time = $("#end_time").val();
+	var company = $("#company").val();
+	var post = $("#post").val();
+	var desc = $("#desc").val();
+	$.ajax({
+		url:'addResume.action',
+		type:'post',
+		data:{
+			start_time:start_time,
+			end_time:end_time,
+			company:company,
+			post:post,
+			desc:desc
+		},
+		dataType: "json",
+		cache: false,
+		async: false,
+		success:returnResumeId
+	});
+}	
+var count_for_resume=0;	
+function returnResumeId(responseText){
+	alert("修改成功");
+	//alert(encodeURI(responseText.id));
+	var backResumeId=encodeURI(responseText.id)+",";
+	var oldList=$("#resumeIdList").val();
+	$("#resumeIdList").val(oldList+backResumeId);
+	$("#start_time").val("");
+	$("#end_time").val("");
+	$("#company").val("");
+	$("#post").val("");
+	$("#desc").val("");
+	count_for_resume++;
+	var content="已创建"+count_for_resume+"份履历";
+	$("#countForResume").html(content);
+}

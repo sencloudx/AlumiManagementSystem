@@ -344,4 +344,10 @@ public class StuInforServiceImpl implements StuInforService {
 		stuInforDAO.delete(id);
 	}
 
+	@Override
+	public int saveBackId(StuInfor stuInfor) {
+		stuInforDAO.makePersistenceBackId(stuInfor);
+		return stuInfor.getStuId();
+	}
+
 }

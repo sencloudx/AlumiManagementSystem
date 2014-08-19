@@ -11,6 +11,7 @@ import sencloud.sl.service.admin.LoginService;
 import sencloud.sl.service.admin.MajorService;
 import sencloud.sl.service.admin.QuestionBankService;
 import sencloud.sl.service.admin.QuestionnaireService;
+import sencloud.sl.service.admin.ResumeService;
 import sencloud.sl.service.admin.StuInforService;
 
 
@@ -50,7 +51,16 @@ public class BaseAction extends ActionSupport {
 	protected CommonService commonService;
 	protected QuestionnaireService questionnaireService;
 	protected ContactsService contactsService;
+	protected ResumeService resumeService;
 	
+	public ResumeService getResumeService() {
+		return resumeService;
+	}
+
+	public void setResumeService(ResumeService resumeService) {
+		this.resumeService = resumeService;
+	}
+
 	public ContactsService getContactsService() {
 		return contactsService;
 	}

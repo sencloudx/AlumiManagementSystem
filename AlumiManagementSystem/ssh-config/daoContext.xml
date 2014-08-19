@@ -23,4 +23,5 @@
        <bean id="questionBankDAO" class="sencloud.sl.dao.impl.admin.QuestionBankDAOImpl" parent="baseDAO" />
        <bean id="questionnaireDAO" class="sencloud.sl.dao.impl.admin.QuestionnaireDAOImpl" parent="baseDAO" />
        <bean id="contactsDAO" class="sencloud.sl.dao.impl.admin.ContactsDAOImpl" parent="baseDAO" />
+       <bean id="resumeDAO" class="sencloud.sl.dao.impl.admin.ResumeDAOImpl" parent="baseDAO" />
 </beans>

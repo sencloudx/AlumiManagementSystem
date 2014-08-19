@@ -78,5 +78,10 @@
       		<result name="success">/WEB-INF/responseMsg.jsp</result>
       		<interceptor-ref name="mydefault"></interceptor-ref> 
       	</action>
+      	<!-- 添加简历 -->
+      	<action name="addResume" class="sencloud.sl.action.admin.ResumeAction" method = "addResume">
+      		<result name="success">/WEB-INF/responseMsg.jsp</result>
+      		<interceptor-ref name="mydefault"></interceptor-ref> 
+      	</action>
    </package>
 </struts>

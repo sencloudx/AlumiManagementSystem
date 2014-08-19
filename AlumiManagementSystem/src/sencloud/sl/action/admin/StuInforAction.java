@@ -26,6 +26,7 @@ import sencloud.sl.entity.TeaProtitle;
 import sencloud.sl.util.FileUtil;
 import sencloud.sl.util.PageUtil;
 import sencloud.sl.util.SCUtils;
+import sencloud.sl.entity.Resume;
 
 
 import com.opensymphony.xwork2.ActionContext;
@@ -84,8 +85,16 @@ public class StuInforAction extends BaseAction{
 	private Integer docProtitleId;
 	private Integer userId;
 	private Integer[] ids;
-	
-	
+	//定义resume对象
+	private Resume resume;
+	private String resumeIdList;
+
+	public String getResumeIdList() {
+		return resumeIdList;
+	}
+	public void setResumeIdList(String resumeIdList) {
+		this.resumeIdList = resumeIdList;
+	}
 	/**
 	 * 获取学生所有集合含分页
 	 * 可按省份进行分类查找
@@ -150,10 +159,14 @@ public class StuInforAction extends BaseAction{
 	}
 	/**
 	 * 进行学生信息的添加
+	 * 
+	 * PS：还要添加履历的信息这里
 	 * @throws UnsupportedEncodingException 
 	 * */
 	public String addInfor() throws UnsupportedEncodingException{
 		try{
+			
+			//这里是对校友信息的基本信息的添加
 			//System.out.println(upload);
 			if(upload!=null&&!"".equals(upload)){
 				saveUserPhoto();
@@ -178,7 +191,30 @@ public class StuInforAction extends BaseAction{
 			TeaProtitle teaProtitle = commonService.findById(TeaProtitle.class, teaProtitleId);
 			stuInfor.setDocProtitle(docProtitle);
 			stuInfor.setTeaProtitle(teaProtitle);
-			stuInforService.save(stuInfor);
+			//stuInforService.save(stuInfor);
+//			//这里是对其简历的基本添加
+//			Resume resumeAdd = new Resume();
+//			resumeAdd.setResumeCompany(resume.getResumeCompany());
+//			resumeAdd.setResumeDesc(resume.getResumeDesc());
+//			resumeAdd.setResumePost(resume.getResumePost());
+//			
+//			int i=resumeService.save(resumeAdd);
+//			response = "{success:true,id:'"+i+"'}";
+			int userid=stuInforService.saveBackId(stuInfor);
+			System.out.println(resumeIdList);
+			System.out.println(userid);
+			String [] getResumeid=resumeIdList.split(",");
+			for(int i=0; i<getResumeid.length; i++){
+			       //循环给履历添加userid
+					System.out.println(getResumeid[i]);
+					int getid=Integer.parseInt(getResumeid[i]);
+					Resume getresume=resumeService.getResumeById(getid);
+					getresume.setUserId(userid);
+					resumeService.update(getresume);
+					
+			    }
+			
+			
 			log.info("成功进行校友的添加，添加的校友姓名为  "+stuInfor.getStuName()+", 学号为  "+stuInfor.getStuNum());
 			response = "{success:true,msg:'OK'}";
 		}catch (Exception e) {
@@ -785,6 +821,12 @@ public class StuInforAction extends BaseAction{
 	}
 	public void setIds(Integer[] ids) {
 		this.ids = ids;
+	}
+	public Resume getResume() {
+		return resume;
+	}
+	public void setResume(Resume resume) {
+		this.resume = resume;
 	}
 	
 }
