@@ -5,6 +5,7 @@ package sencloud.sl.action.app;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sencloud.sl.base.BaseAction;
-import sencloud.sl.entity.StuInfor;
 import sencloud.sl.util.JsonUtils;
 
 /**
@@ -24,10 +24,7 @@ import sencloud.sl.util.JsonUtils;
  */
 public class InterfaceAction extends BaseAction {
 
-	private String method;
-	private String userName;
-	private String password;
-    private Integer userType;
+    private String paramsJon;
 	/**
 	 * 
 	 */
@@ -38,9 +35,14 @@ public class InterfaceAction extends BaseAction {
 			.getLogger(InterfaceAction.class);
 
 	public void doAction() throws Exception {
-		System.out.println(method + "," + userName + "," + password);
-		if("login".equals(method)){
-			login(userName, password);
+		System.out.println(paramsJon);
+		Map paramsMap = JsonUtils.toMap(paramsJon);
+		String method = (String) paramsMap.get("cmd");
+		LinkedHashMap<String, String> params = (LinkedHashMap<String, String>) paramsMap.get("params");
+		if("signin".equals(method)){
+			String userName = params.get("userName");
+			String password = params.get("password");
+			signin(userName, password);
 		}
 	}
 
@@ -50,8 +52,7 @@ public class InterfaceAction extends BaseAction {
 	 * @param password 登录密码（客户端需要通过MD5和Base64加密）
 	 * @throws Exception
 	 */
-	public void login(String userName, String password) {
-		logger.info("method is " + userName);
+	public void signin(String userName, String password) {
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = null;
@@ -61,7 +62,7 @@ public class InterfaceAction extends BaseAction {
 	    	out = response.getWriter();
 			if(userName != null && !"".equals(userName)){
 				try {
-					Map map = loginService.adminLogin(userName, password, userType);
+					Map map = loginService.adminLogin(userName, password, 1);
 					if(map != null){
 						userMap.put("data", map);
 						userMap.put("success", 0);
@@ -72,7 +73,6 @@ public class InterfaceAction extends BaseAction {
 					userMap.put("success", 1);
 					userMap.put("msg", e.getMessage());
 				}
-				
 			}
 		} catch (Exception e) {
 			userMap.put("data", "");
@@ -85,35 +85,11 @@ public class InterfaceAction extends BaseAction {
 		out.close();
 	}
 
-	public String getMethod() {
-		return method;
+	public String getParamsJon() {
+		return paramsJon;
 	}
 
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getUserType() {
-		return userType;
-	}
-
-	public void setUserType(Integer userType) {
-		this.userType = userType;
+	public void setParamsJon(String paramsJon) {
+		this.paramsJon = paramsJon;
 	}
 }

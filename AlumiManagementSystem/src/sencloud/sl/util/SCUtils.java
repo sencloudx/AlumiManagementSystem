@@ -109,7 +109,7 @@ public class SCUtils {
 	}
 
 	public static void main(String[] args) {
-		String test = "123456";
+		String test = "044221";
 		System.out.println(encryptBasedMd5(test));;
 	}
 	
