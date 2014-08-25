@@ -216,12 +216,12 @@
 	            <#if Session.adminType != "理事">
 		            <#if showType == "0">
 		            <td>
-		            	<span class="editspan" onclick="seeDetail('${infor.stuId}',this,650, 580,'showInforDetailAction.action')">详情</span>&nbsp;&nbsp;
-		            	<span class="editspan" onclick="seeDetail('${infor.stuId}',this,650, 580,'showInforUpdateAction.action')">修改</span>&nbsp;&nbsp;
+		            	<span class="editspan" onclick="seeDetail('${infor.stuId?c}',this,650, 580,'showInforDetailAction.action')">详情</span>&nbsp;&nbsp;
+		            	<span class="editspan" onclick="seeDetail('${infor.stuId?c}',this,650, 580,'showInforUpdateAction.action')">修改</span>&nbsp;&nbsp;
 		            </td>
 		            <#elseif showType == "回收站">
 		            <td>
-		            	<span class="editspan" onclick="fakeDelete('${infor.stuId}', 'fakeDeleteAction.action', 'inforListAction.action', '还原');">还原</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		            	<span class="editspan" onclick="fakeDelete('${infor.stuId?c}', 'fakeDeleteAction.action', 'inforListAction.action', '还原');">还原</span>&nbsp;&nbsp;&nbsp;&nbsp;
 		            </td>
 		            <#else>
 		            	<td><font color = "red">该视图不支持任何操作</font></td>

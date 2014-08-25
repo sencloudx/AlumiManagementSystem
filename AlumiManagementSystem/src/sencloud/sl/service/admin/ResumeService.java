@@ -1,5 +1,8 @@
 package sencloud.sl.service.admin;
 
+import java.util.List;
+
+import sencloud.sl.entity.Contacts;
 import sencloud.sl.entity.Resume;
 import sencloud.sl.entity.StuInfor;
 public interface ResumeService {
@@ -16,5 +19,8 @@ public interface ResumeService {
 	 * 根据id获取详情
 	 * */
 	public Resume getResumeById(int id);
-	
+	/**
+	 * 根据id获取ResumeList
+	 * **/
+	public List<Resume> queryResumeList(Integer currentUserId);
 }

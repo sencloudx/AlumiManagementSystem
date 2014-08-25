@@ -1,5 +1,7 @@
 package sencloud.sl.service.impl.admin;
 
+import java.util.List;
+
 import sencloud.sl.dao.admin.AdminDAO;
 import sencloud.sl.dao.admin.ResumeDAO;
 import sencloud.sl.entity.Resume;
@@ -36,5 +38,10 @@ public class ResumeServiceImpl implements ResumeService{
 		// TODO Auto-generated method stub
 		return resumeDAO.getResumeByid(id);
 		}
+
+	@Override
+	public List<Resume> queryResumeList(Integer currentUserId) {
+		return resumeDAO.queryResumeList(currentUserId);
+	}
 
 }

@@ -207,6 +207,20 @@
 			    </td>
 			    </#if>
 			</tr>
+			<tr>
+				<td>履历修改</td>
+				<td colspan="3">
+					<#if resumeList.size()!=0>
+						<select name="">
+						
+						</select>
+					<#else>
+					</#if>
+				</td>
+				
+				
+				
+			</tr>
 		</table>
 		<input type = "submit" name = "test" value = "确定修改">	
 		</div>

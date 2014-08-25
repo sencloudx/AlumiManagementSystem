@@ -123,6 +123,33 @@
 			    <td>校友类型:</td>
 				<td>${stuInfor.stuType?default("")}</td>
 			</tr>
+			<!-- 这里是履历的 -->
+			<#if resumeList.size()!=0>
+			<#list resumeList as res>
+			<tr><td colspan="4"><center>个人履历</center></td></tr>
+			<tr>
+				<td>开始时间:</td>
+				<td>${res.startTM?default("")}</td>
+				<td>结束时间:</td>
+				<td>${res.endTM?default("")}</td>
+			</tr>
+			<tr>
+				<td>所在公司:</td>
+				<td>${res.resumeCompany?default("")}</td>
+				<td>职务:</td>
+				<td>${res.resumePost?default("")}</td>
+			</tr>
+			<tr>
+				<td>履历详情:</td>
+				<td colspan="4">${res.resumeDesc?default("")}</td>
+			</tr>
+			</#list>
+			<#else>
+			<tr><td colspan="4"><center>您当前没有创建个人履历</center></td></tr>
+   			</#if>
+			
+			
+			
 		</table>	
 		</div>
 	</div>

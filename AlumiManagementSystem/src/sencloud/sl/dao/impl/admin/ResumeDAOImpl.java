@@ -1,6 +1,9 @@
 package sencloud.sl.dao.impl.admin;
 
+import java.util.List;
+
 import sencloud.sl.dao.admin.ResumeDAO;
+import sencloud.sl.entity.Contacts;
 import sencloud.sl.entity.Resume;
 import sencloud.sl.entity.StuInfor;
 
@@ -26,6 +29,13 @@ public class ResumeDAOImpl extends GenericHibernateDAO<Resume> implements Resume
 	@Override
 	public Resume getResumeByid(int id) {
 		return (Resume) this.getHibernateTemplate().get(Resume.class, id);
+	}
+
+	@Override
+	public List<Resume> queryResumeList(Integer currentUserId) {
+		String hql = "from Resume as res where res.userId = '"+currentUserId+"'";
+		List<Resume> resumeList = findListByHQL(hql);
+		return resumeList;
 	}
 
 }

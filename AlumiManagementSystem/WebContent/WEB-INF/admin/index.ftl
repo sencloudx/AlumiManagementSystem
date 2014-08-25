@@ -91,6 +91,7 @@
 					<a href="showInforAddAction.action">添加学生信息</a>
 					<a href="showSpreadAction.action">显示就业分布</a>
 					<a href="showEnrollmentSpreadAction.action">显示生源分布</a>
+					<a href="showEnrollmentSpreadAction.action">简历信息列表</a>
 					<a href="showBachAddAction.action">批量上传[excel]</a>
 				</div>
 				<div>

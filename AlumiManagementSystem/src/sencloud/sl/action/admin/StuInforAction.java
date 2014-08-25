@@ -41,6 +41,9 @@ public class StuInforAction extends BaseAction{
 	private StuInfor stuInfor;
 	private List<Classes> classesList;
 	private List<Major> majorList = new ArrayList<Major>();
+	//这里是当前的resumeList
+	private List<Resume> resumeList = new ArrayList<Resume>();
+	
 	private List<StuInfor> inforList;
 	private List<StuInfor> stuList = new ArrayList<StuInfor>();
 	private List<Contacts> contactsList = new ArrayList<Contacts>();
@@ -232,6 +235,10 @@ public class StuInforAction extends BaseAction{
 		//获取医师职称和教师职称
 		getProtitleList();
 		stuInfor = stuInforService.getInforById(tagId);
+		
+		//这里通过tagid获取resumeList
+		resumeList=resumeService.queryResumeList(tagId);
+		
 		return SUCCESS;
 	}
 	/**
@@ -827,6 +834,12 @@ public class StuInforAction extends BaseAction{
 	}
 	public void setResume(Resume resume) {
 		this.resume = resume;
+	}
+	public List<Resume> getResumeList() {
+		return resumeList;
+	}
+	public void setResumeList(List<Resume> resumeList) {
+		this.resumeList = resumeList;
 	}
 	
 }
