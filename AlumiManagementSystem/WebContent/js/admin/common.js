@@ -990,7 +990,7 @@ function add_Resume(){
 }	
 var count_for_resume=0;	
 function returnResumeId(responseText){
-	alert("修改成功");
+	alert("履历添加成功");
 	//alert(encodeURI(responseText.id));
 	var backResumeId=encodeURI(responseText.id)+",";
 	var oldList=$("#resumeIdList").val();
@@ -1004,3 +1004,33 @@ function returnResumeId(responseText){
 	var content="已创建"+count_for_resume+"份履历";
 	$("#countForResume").html(content);
 }
+
+
+//履历修改
+function update_Resume(id){
+	var start_time = $("#startTM_"+id).val();
+	//alert(start_time);
+	var end_time = $("#endTM_"+id).val();
+	var company = $("#resumeCompany_"+id).val();
+	var post = $("#resumePost_"+id).val();
+	var desc = $("#resumeDesc_"+id).val();
+	var resumeId = $("#resumeId_"+id).val();
+	//alert(resumeId);
+	$.ajax({
+		url:'updateResume.action',
+		type:'post',
+		data:{
+			resumeId:resumeId,
+			start_time:start_time,
+			end_time:end_time,
+			company:company,
+			post:post,
+			desc:desc
+		},
+		dataType: "json",
+		cache: false,
+		async: false,
+		success:alert("修改成功")
+	});
+}
+

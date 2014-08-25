@@ -211,9 +211,37 @@
 				<td>履历修改</td>
 				<td colspan="3">
 					<#if resumeList.size()!=0>
-						<select name="">
+						<#list resumeList as res>
+						<div>
+							<div class="resume_title">个人履历</div>
+							<div style="display:none;"><input id="resumeId_${res.resumeId}" value="${res.resumeId?default("")}"/></div>
+							<div>
+								<span class="resume_span">&nbsp;开始时间:</span>
+								<input id="startTM_${res.resumeId}" value="${res.startTM?default("")}" onFocus="WdatePicker()"/>
+								
+								<span class="resume_span">结束时间:<span>
+								<input id="endTM_${res.resumeId}" value="${res.endTM?default("")}" onFocus="WdatePicker()"/>
+								
+							<div>
+							<div>
+								<span class="resume_span">所在公司:<span>
+								<input id="resumeCompany_${res.resumeId}"  value="${res.resumeCompany?default("")}"/>
+								
+								<span class="resume_span">&nbsp;&nbsp;&nbsp;职务:&nbsp;&nbsp;&nbsp;<span>
+								<input id="resumePost_${res.resumeId}"  value="${res.resumePost?default("")}"/>
+								
+							</div>
+							<div>
+								<span class="resume_span">履历详情:<span><br>
+								<textarea class="resume_span" id="resumeDesc_${res.resumeId}"   rows = "6" cols = "70">${res.resumeDesc?default("")}</textarea>
+								
+							<div>
+							<div class="resume_bottom">
+								<input type="button" class="reusume_button" value="保存当前的履历" onClick="update_Resume('${res.resumeId}')">
+							</div>
+						</div>	
+						</#list>
 						
-						</select>
 					<#else>
 					</#if>
 				</td>

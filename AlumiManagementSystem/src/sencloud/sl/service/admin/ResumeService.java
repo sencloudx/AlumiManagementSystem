@@ -2,9 +2,7 @@ package sencloud.sl.service.admin;
 
 import java.util.List;
 
-import sencloud.sl.entity.Contacts;
 import sencloud.sl.entity.Resume;
-import sencloud.sl.entity.StuInfor;
 public interface ResumeService {
 	/**
 	 * 进行对象的存储
