@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -14,8 +16,10 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import sencloud.sl.dao.admin.AdminDAO;
+import sencloud.sl.dao.admin.MajorDAO;
 import sencloud.sl.dao.admin.StuInforDAO;
 import sencloud.sl.entity.StuInfor;
+import sencloud.sl.entity.Major;
 import sencloud.sl.service.admin.StuInforService;
 import sencloud.sl.util.PageUtil;
 
@@ -26,7 +30,16 @@ public class StuInforServiceImpl implements StuInforService {
 	
 	private StuInforDAO stuInforDAO;
 	private AdminDAO adminDAO;
+	private MajorDAO majorDAO;
 	
+	public MajorDAO getMajorDAO() {
+		return majorDAO;
+	}
+
+	public void setMajorDAO(MajorDAO majorDAO) {
+		this.majorDAO = majorDAO;
+	}
+
 	public StuInforDAO getStuInforDAO() {
 		return stuInforDAO;
 	}
@@ -348,6 +361,25 @@ public class StuInforServiceImpl implements StuInforService {
 	public int saveBackId(StuInfor stuInfor) {
 		stuInforDAO.makePersistenceBackId(stuInfor);
 		return stuInfor.getStuId();
+	}
+
+	@Override
+	public Map getStuInfo(int stuId) {
+		// TODO Auto-generated method stub
+		System.out.println("当前用户的学号"+stuId);
+		StuInfor stuinfo=stuInforDAO.getInforById(stuId);//通过id获取到stuinfo
+		if(stuinfo==null){
+			return new HashMap();
+		}
+		Map<String, String> map=new HashMap();//定义存放信息的map
+		map.put("stuName",stuinfo.getStuName() );
+		map.put("stuEndTime", stuinfo.getStuEndTime());
+		//获取专业名
+		map.put("major", stuinfo.getMajor().getMajorName());
+		map.put("qq",stuinfo.getStuQq());
+		map.put("stuTelephone", stuinfo.getStuTelephone());
+		map.put("stuEmail",stuinfo.getStuEmail());
+		return map;
 	}
 
 }

@@ -6,6 +6,7 @@ import sencloud.sl.action.exception.NameNotFoundException;
 import sencloud.sl.action.exception.PwNotMatchException;
 import sencloud.sl.base.BaseAction;
 import sencloud.sl.entity.Admin;
+import sencloud.sl.util.MD5;
 import sencloud.sl.util.SCUtils;
 
 
@@ -39,7 +40,8 @@ public class LoginAction extends BaseAction{
     	}
     	try {
     		if(session.get("adminName")==null){
-    			admPsw = SCUtils.encryptBasedMd5(admPsw);
+    			MD5 getMD5 = new MD5();
+    			admPsw = getMD5.GetMD5Code(admPsw);
     			Map map = loginService.adminLogin(admName, admPsw, userType);
     			session.putAll(map);
     			return SUCCESS;
@@ -60,7 +62,9 @@ public class LoginAction extends BaseAction{
 		try {
 			System.out.println("数据    = "+newPw+ "   "+newPwRepeat);
 			Admin admin = (Admin)ActionContext.getContext().getSession().get("admin");
-			newPw = SCUtils.encryptBasedMd5(newPw);
+			//newPw = SCUtils.encryptBasedMd5(newPw);
+			MD5 getMD5 = new MD5();
+			newPw = getMD5.GetMD5Code(newPw);
 			admin.setAdminPw(newPw);
 			loginService.updateAdmin(admin);
 			response="{success:true}";

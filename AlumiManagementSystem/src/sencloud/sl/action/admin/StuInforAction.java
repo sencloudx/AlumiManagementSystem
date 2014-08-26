@@ -24,6 +24,7 @@ import sencloud.sl.entity.Major;
 import sencloud.sl.entity.StuInfor;
 import sencloud.sl.entity.TeaProtitle;
 import sencloud.sl.util.FileUtil;
+import sencloud.sl.util.MD5;
 import sencloud.sl.util.PageUtil;
 import sencloud.sl.util.SCUtils;
 import sencloud.sl.entity.Resume;
@@ -186,7 +187,9 @@ public class StuInforAction extends BaseAction{
 			String psw = null;
 			if(stuInfor.getStuSfzh() != null && !"".equals(stuInfor.getStuSfzh()) && stuInfor.getStuSfzh().length() > 6){
 				psw = stuInfor.getStuSfzh().substring(stuInfor.getStuSfzh().length()-6,stuInfor.getStuSfzh().length());
-				psw = SCUtils.encryptBasedMd5(psw);
+				//psw = SCUtils.encryptBasedMd5(psw);
+				MD5 getMD5 = new MD5();
+				psw = getMD5.GetMD5Code(psw);
 			}
 			stuInfor.setPassword(psw);
 			//职称

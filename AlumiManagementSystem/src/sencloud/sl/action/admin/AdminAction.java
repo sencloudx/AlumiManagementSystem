@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import sencloud.sl.base.BaseAction;
 import sencloud.sl.entity.Admin;
+import sencloud.sl.util.MD5;
 import sencloud.sl.util.SCUtils;
 
 
@@ -35,7 +36,9 @@ public class AdminAction extends BaseAction{
 	 * */
 	public String adminAdd(){
 		//log.info("进行普通管理员的添加，添加的管理员为： 账号 = "+adminNum + " 密码= "+adminPw+"  "+idStr);
-		adminPw = SCUtils.encryptBasedMd5(adminPw);
+//		adminPw = SCUtils.encryptBasedMd5(adminPw);
+		MD5 getMD5 = new MD5();
+		adminPw = getMD5.GetMD5Code(adminPw);
 		try{
 			adminService.addAdmin(adminNum, adminPw, idStr);
 			response = "{success:true,msg:'恭喜：已成功进行存储'}";
@@ -73,7 +76,9 @@ public class AdminAction extends BaseAction{
 	 * 修改
 	 * */
 	public String update(){
-		adminPw = SCUtils.encryptBasedMd5(adminPw);
+	//	adminPw = SCUtils.encryptBasedMd5(adminPw);
+		MD5 getMD5 = new MD5();
+		adminPw = getMD5.GetMD5Code(adminPw);
 		try{
 			adminService.update(tagId, adminNum, adminPw);
 			response = "{success:true,msg:'恭喜：已成功进行修改'}";

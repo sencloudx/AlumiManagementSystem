@@ -2,7 +2,8 @@ package sencloud.sl.service.admin;
 
 import java.io.InputStream;
 import java.util.List;
-
+import java.util.HashMap;
+import java.util.Map;
 import sencloud.sl.entity.StuInfor;
 import sencloud.sl.util.PageUtil;
 
@@ -86,4 +87,8 @@ public interface StuInforService {
 	 * 进行对象的存储
 	 * */
 	public int saveBackId(StuInfor stuInfor);
+	/**
+	 * 根据学号返回map信息
+	 **/
+	public Map getStuInfo(int stuId);
 }
