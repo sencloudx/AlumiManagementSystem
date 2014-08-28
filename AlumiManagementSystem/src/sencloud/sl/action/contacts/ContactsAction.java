@@ -124,6 +124,7 @@ public class ContactsAction extends BaseAction {
 					contacts.setUserId(stuInfo.getStuId());
 					Integer currentUserId = (Integer)ActionContext.getContext().getSession().get("userId");
 					contacts.setCurrentUserId(currentUserId);
+					contacts.setAccount(stuInfo.getStuNum());//添加学号
 					Contacts contactsExist = contactsService.getContactsByUserId(stuInfo.getStuId());
 					if(contactsExist != null){
 						contactsExist.setContactAddress(stuInfo.getStuWorkAddress());
@@ -131,6 +132,7 @@ public class ContactsAction extends BaseAction {
 						contactsExist.setUserId(stuInfo.getStuId());
 						contactsExist.setCurrentUserId(currentUserId);
 						contactsExist.setUserName(stuInfo.getStuName());
+						contactsExist.setAccount(stuInfo.getStuNum());//更新学号
 						contactsService.updata(contactsExist);
 					}else{
 						contactsService.save(contacts);

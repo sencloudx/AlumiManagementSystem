@@ -5,6 +5,7 @@ package sencloud.sl.action.app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 
 import sencloud.sl.base.BaseAction;
 import sencloud.sl.entity.Resume;
+import sencloud.sl.entity.StuInfor;
 import sencloud.sl.entity.Contacts;
 import sencloud.sl.util.JsonUtils;
 
@@ -100,7 +102,8 @@ public class InterfaceAction extends BaseAction {
 		//						"endTM"    		:	"stuId",
 		//						"resumeCompany"	:	"stuId",
 		//						"resumePost"	:	"stuId",		
-		//						"resumeDesc"	:	"stuId"
+		//						"resumeDesc"	:	"stuId",
+		//						"adminNum"		:	"31251P37"
 		//					}"	
 		if("addReusme".equals(method)){
 			//String startTM,String endTM,String resumeCompany,String resumePost,String resumeDesc
@@ -109,9 +112,10 @@ public class InterfaceAction extends BaseAction {
 			String resumeCompany = params.get("resumeCompany");
 			String resumePost = params.get("resumePost");
 			String resumeDesc = params.get("resumeDesc");
-			addReusme(startTM,endTM,resumeCompany,resumePost,resumeDesc);
+			String adminNum =params.get("adminNum") ;
+			addReusme(startTM,endTM,resumeCompany,resumePost,resumeDesc,adminNum);
 		}
-		//操作类型：查看	系人
+		//操作类型：查看联系人
 		//需要的参数：	"cmd":"viewContacts",
 		//			params:"{
 		//						"stuId":"stuId"
@@ -342,9 +346,36 @@ public class InterfaceAction extends BaseAction {
 				try {
 				//	Map map =stuInforService.getInforById(stuId);//参数：用户名，密码，用户类型
 					java.util.List<Contacts> contactsList =contactsService.queryContactsList(currentUserId);
+					//StuInfor stu = stuInforService.getInforById(currentUserId);
+					//Map<String,Object> detailMap = new HashMap<String, Object>();
+					List<Map> detailMapList=new ArrayList<Map>();
+					if(contactsList.size()>0){
+						for(int i=0;i<contactsList.size();i++){
+							Map<String,Object> detailMap = new HashMap<String, Object>();
+							String friendsAccount=contactsList.get(i).getAccount();
+							String userName = contactsList.get(i).getUserName();
+							String contactAddress = contactsList.get(i).getContactAddress();
+							String contactPhoneNum = contactsList.get(i).getContactPhoneNum();
+							Integer 	contactsId = contactsList.get(i).getContactsId();
+							//根据学号获取好友的信息
+							StuInfor stu = stuInforService.getStuInforByNum(friendsAccount);
+							String qq = stu.getStuQq();
+							String email=stu.getStuEmail();
+							//将数据放入map
+							detailMap.put("contactsId", contactsId);
+							detailMap.put("friendsAccount", friendsAccount);
+							detailMap.put("userName", userName);
+							detailMap.put("contactAddress", contactAddress);
+							detailMap.put("contactPhoneNum", contactPhoneNum);
+							detailMap.put("qq", qq);
+							detailMap.put("email", email);
+							detailMapList.add(detailMap);
+							
+						}
+					}
 					if(contactsList.size()>0){
 						//JsonUtils.toJson(value)
-						contactsMap.put("detail", contactsList);
+						contactsMap.put("detail", detailMapList);
 						contactsMap.put("success", 0);
 						contactsMap.put("msg", "查询成功");
 					}
@@ -398,7 +429,7 @@ public class InterfaceAction extends BaseAction {
 	 * @param resumeDesc 履历
 	 * @throws Exception
 	 */
-	public void addReusme(String startTM,String endTM,String resumeCompany,String resumePost,String resumeDesc){
+	public void addReusme(String startTM,String endTM,String resumeCompany,String resumePost,String resumeDesc,String adminNum){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = null;
@@ -412,6 +443,7 @@ public class InterfaceAction extends BaseAction {
 			resume.setResumeCompany(resumeCompany);
 			resume.setResumePost(resumePost);
 			resume.setResumeDesc(resumeDesc);
+			resume.setStuNum(adminNum);
 			//resumeService.update(resume);
 			try{
 				resumeService.save(resume);
