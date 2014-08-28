@@ -17,6 +17,7 @@ public class Contacts {
 	private String contactAddress;
 	private Integer userId;
 	private Integer currentUserId;
+	private String account;
 
 	public Contacts() {
 		super();
@@ -24,7 +25,7 @@ public class Contacts {
 
 	public Contacts(Integer contactsId, String userName,
 			String contactPhoneNum, String contactAddress, Integer userId,
-			Integer currentUserId) {
+			Integer currentUserId, String account) {
 		super();
 		this.contactsId = contactsId;
 		this.userName = userName;
@@ -32,7 +33,9 @@ public class Contacts {
 		this.contactAddress = contactAddress;
 		this.userId = userId;
 		this.currentUserId = currentUserId;
+		this.account = account;
 	}
+
 
 	public String getUserName() {
 		return userName;
@@ -80,6 +83,14 @@ public class Contacts {
 
 	public void setCurrentUserId(Integer currentUserId) {
 		this.currentUserId = currentUserId;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

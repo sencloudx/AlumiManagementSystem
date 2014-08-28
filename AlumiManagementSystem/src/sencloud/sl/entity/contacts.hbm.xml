@@ -23,5 +23,8 @@
         <property name="currentUserId" type="java.lang.Integer">
             <column name="current_user_id" length="100" />
         </property>
+        <property name="account" type="java.lang.String">
+            <column name="account" length="20" />
+        </property>
     </class>
 </hibernate-mapping>
