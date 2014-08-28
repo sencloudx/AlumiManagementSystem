@@ -20,5 +20,5 @@ public interface ResumeService {
 	/**
 	 * 根据id获取ResumeList
 	 * **/
-	public List<Resume> queryResumeList(Integer currentUserId);
+	public List<Resume> queryResumeList(String stuNum);
 }

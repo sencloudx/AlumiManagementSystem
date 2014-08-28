@@ -18,6 +18,15 @@ public class Resume {
 	private String resumePost;
 	private String resumeDesc;
 	private Integer userId;
+	private String stuNum;
+
+	public String getStuNum() {
+		return stuNum;
+	}
+
+	public void setStuNum(String stuNum) {
+		this.stuNum = stuNum;
+	}
 
 	public Resume() {
 		super();

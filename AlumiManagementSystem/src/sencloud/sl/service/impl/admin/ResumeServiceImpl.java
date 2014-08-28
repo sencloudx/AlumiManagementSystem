@@ -40,8 +40,8 @@ public class ResumeServiceImpl implements ResumeService{
 		}
 
 	@Override
-	public List<Resume> queryResumeList(Integer currentUserId) {
-		return resumeDAO.queryResumeList(currentUserId);
+	public List<Resume> queryResumeList(String stuNum) {
+		return resumeDAO.queryResumeList(stuNum);
 	}
 
 }

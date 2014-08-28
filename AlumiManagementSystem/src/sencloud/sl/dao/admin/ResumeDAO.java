@@ -23,5 +23,5 @@ public interface ResumeDAO extends GenericDAO<Resume>{
 	 * 查询当前学生的所有履历List
 	 * @return
 	 */
-	public List<Resume> queryResumeList(Integer currentUserId);
+	public List<Resume> queryResumeList(String stuNum);
 }

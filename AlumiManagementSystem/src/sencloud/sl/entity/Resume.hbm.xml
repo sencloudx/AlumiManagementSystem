@@ -26,5 +26,8 @@
         <property name="userId" type="java.lang.Integer">
             <column name="user_id" length="100" />
         </property>
+         <property name="stuNum" type="java.lang.String">
+            <column name="stu_num" length="20" />
+        </property>
     </class>
 </hibernate-mapping>

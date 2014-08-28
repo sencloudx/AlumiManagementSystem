@@ -84,11 +84,15 @@ public interface StuInforService {
 	 
 	 public void delete(Integer id);
 	 /**
-	 * 进行对象的存储
+	 * 进行返回当前学生的id
 	 * */
 	public int saveBackId(StuInfor stuInfor);
 	/**
 	 * 根据学号返回map信息
 	 **/
 	public Map getStuInfo(int stuId);
+	/**
+	 * 返回当前学生的学号
+	 * */
+	public String saveBackNum(StuInfor stuInfor);
 }

@@ -32,8 +32,8 @@ public class ResumeDAOImpl extends GenericHibernateDAO<Resume> implements Resume
 	}
 
 	@Override
-	public List<Resume> queryResumeList(Integer currentUserId) {
-		String hql = "from Resume as res where res.userId = '"+currentUserId+"'";
+	public List<Resume> queryResumeList(String stuNum) {
+		String hql = "from Resume as res where res.stuNum = '"+stuNum+"'";
 		List<Resume> resumeList = findListByHQL(hql);
 		return resumeList;
 	}

@@ -206,16 +206,17 @@ public class StuInforAction extends BaseAction{
 //			
 //			int i=resumeService.save(resumeAdd);
 //			response = "{success:true,id:'"+i+"'}";
-			int userid=stuInforService.saveBackId(stuInfor);
+			//int userid=stuInforService.saveBackId(stuInfor);
+			String stu_Num=stuInforService.saveBackNum(stuInfor);
 			System.out.println(resumeIdList);
-			System.out.println(userid);
+			System.out.println(stu_Num);
 			String [] getResumeid=resumeIdList.split(",");
 			for(int i=0; i<getResumeid.length; i++){
 			       //循环给履历添加userid
 					System.out.println(getResumeid[i]);
 					int getid=Integer.parseInt(getResumeid[i]);
 					Resume getresume=resumeService.getResumeById(getid);
-					getresume.setUserId(userid);
+					getresume.setStuNum(stu_Num);
 					resumeService.update(getresume);
 					
 			    }
@@ -239,8 +240,9 @@ public class StuInforAction extends BaseAction{
 		getProtitleList();
 		stuInfor = stuInforService.getInforById(tagId);
 		
-		//这里通过tagid获取resumeList
-		resumeList=resumeService.queryResumeList(tagId);
+		//这里通过tagid获取
+		String stuNum=stuInfor.getStuNum();
+		resumeList=resumeService.queryResumeList(stuNum);
 		
 		return SUCCESS;
 	}

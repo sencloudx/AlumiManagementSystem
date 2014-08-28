@@ -382,4 +382,11 @@ public class StuInforServiceImpl implements StuInforService {
 		return map;
 	}
 
+	@Override
+	public String saveBackNum(StuInfor stuInfor) {
+		// TODO Auto-generated method stub
+		stuInforDAO.makePersistenceBackId(stuInfor);
+		return stuInfor.getStuNum();
+	}
+
 }
