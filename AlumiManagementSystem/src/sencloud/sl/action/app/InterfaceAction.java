@@ -448,7 +448,7 @@ public class InterfaceAction extends BaseAction {
 			try{
 				resumeService.save(resume);
 				returnMap.put("detail", "OK");
-				returnMap.put("success", 1);
+				returnMap.put("success", 0);
 				returnMap.put("msg","新增成功");
 			}
 			catch (Exception e) {
