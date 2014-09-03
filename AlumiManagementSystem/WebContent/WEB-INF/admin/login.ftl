@@ -28,7 +28,7 @@
         </div>
         <div class="login_right">
             <div class="login_main">
-            	<div style="position:absolute;left:830px; top:145px; width:170px; height:20px; color:#FF0000; text-align:center;"><#if errorMsg?exists>${errorMsg}</#if></div>
+            	
             	<p>
                 	<span class="user">用户名：</span>
                     <span style="float:left;"><input name="admName" id = "admName" type="text" class="text_style"/></span>
@@ -53,6 +53,8 @@
                 	<span style="margin-left:68px; float:left;"><input type="submit" class="but_submit" value="" name="button1"/></span>
                     <span style="margin-left:15px; float:left;"><input type="reset" class="but_reset" value="" name="button2"/></span>
                 </p>
+               <!-- <div style="position:absolute;left: 56%; top:145px; width:170px; height:20px; color:#FF0000; text-align:center;"><#if errorMsg?exists>${errorMsg}</#if></div>-->
+               <div style="width: 200px;height: 20px;color: #FF0000;text-align: center;"><#if errorMsg?exists>${errorMsg}</#if></div>
             </div>
         </div>
     </div>
